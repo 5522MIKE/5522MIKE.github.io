@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mikyming.online/"/>
-  <updated>2020-04-20T09:55:40.718Z</updated>
+  <updated>2020-04-20T11:48:29.137Z</updated>
   <id>https://mikyming.online/</id>
   
   <author>
@@ -21,13 +21,14 @@
     <link href="https://mikyming.online/2020/04/20/%E8%AF%BB%E4%B9%A6%E5%92%8C%E5%86%99%E4%BD%9C/"/>
     <id>https://mikyming.online/2020/04/20/%E8%AF%BB%E4%B9%A6%E5%92%8C%E5%86%99%E4%BD%9C/</id>
     <published>2020-04-20T07:55:43.000Z</published>
-    <updated>2020-04-20T09:55:40.718Z</updated>
+    <updated>2020-04-20T11:48:29.137Z</updated>
     
-    <content type="html"><![CDATA[<p>高中读了很多书，大学没有怎么读书，反而是看了很多小说，打了很多游戏。</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<p>高中读了很多书，大学没怎么读书，反而是看了很多小说，打了很多游戏。</p><p>最近突然惊觉，应该继续读书了。同时和很优秀的几位朋友和前辈聊了一下，决定要开始认真的写作了。用写作来作为知识和思考的积累方式。</p><a id="more"></a><p>看啥书？</p><p>看专业书籍，文学书籍，以及引人思考的blog</p><p>写什么？</p><p>写所有想写的，越多越好。同时一周保持一篇有质量的技术文档。</p><p>怎么写？</p><p>真不知道怎么写。重新看on writing吧。。</p><p>如何进行分发，如何和人进行讨论？</p><p>分发和讨论先自己去找认识的人吧。</p><p>// TODO</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;高中读了很多书，大学没有怎么读书，反而是看了很多小说，打了很多游戏。&lt;/p&gt;
+      &lt;p&gt;高中读了很多书，大学没怎么读书，反而是看了很多小说，打了很多游戏。&lt;/p&gt;
+&lt;p&gt;最近突然惊觉，应该继续读书了。同时和很优秀的几位朋友和前辈聊了一下，决定要开始认真的写作了。用写作来作为知识和思考的积累方式。&lt;/p&gt;
     
     </summary>
     
@@ -296,9 +297,9 @@
     <link href="https://mikyming.online/2019/11/25/Start/"/>
     <id>https://mikyming.online/2019/11/25/Start/</id>
     <published>2019-11-25T12:28:32.000Z</published>
-    <updated>2020-04-20T10:37:06.042Z</updated>
+    <updated>2020-04-20T11:45:31.830Z</updated>
     
-    <content type="html"><![CDATA[<p>总之还是决定开始写博客。 // 虽然还是偷懒用了GitHub Page</p><p>本博客已经迁移，在完成搭建前不定时更新。</p>]]></content>
+    <content type="html"><![CDATA[<p>总之还是决定开始写博客。 // 虽然还是偷懒用了GitHub Page</p><p>本博客已经迁移，在完成搭建前不定时更新。</p><p>联系请通过邮件。</p>]]></content>
     
     <summary type="html">
     
@@ -306,6 +307,7 @@
       
         &lt;p&gt;总之还是决定开始写博客。 // 虽然还是偷懒用了GitHub Page&lt;/p&gt;
 &lt;p&gt;本博客已经迁移，在完成搭建前不定时更新。&lt;/p&gt;
+&lt;p&gt;联系请通过邮件。&lt;/p&gt;
 
       
     
@@ -324,7 +326,7 @@
     <link href="https://mikyming.online/2019/11/25/Hello%20world/"/>
     <id>https://mikyming.online/2019/11/25/Hello%20world/</id>
     <published>2019-11-25T12:16:18.000Z</published>
-    <updated>2020-04-03T09:07:45.067Z</updated>
+    <updated>2020-04-20T11:21:50.212Z</updated>
     
     <content type="html"><![CDATA[<p>博客的大致框架：<br>    categoies: 技术 随笔<br>    tags: [技术探究] [解决方案] [思考] [随笔]</p><a id="more"></a><p>这里啥也没有。</p>]]></content>
     
