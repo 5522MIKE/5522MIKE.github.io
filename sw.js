@@ -28,11 +28,11 @@ var precacheUrls = [];
 
   precacheUrls.push('/2019/11/25/Start/');
 
+  precacheUrls.push('/2020/04/20/读书和写作/');
+
   precacheUrls.push('/2020/04/20/考研与未来的方向/');
 
   precacheUrls.push('/2020/04/15/计网-数据链路层/');
-
-  precacheUrls.push('/2020/04/11/计网-物理层/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};

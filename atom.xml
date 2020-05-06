@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mikyming.online/"/>
-  <updated>2020-04-20T11:48:29.137Z</updated>
+  <updated>2020-05-06T12:27:31.158Z</updated>
   <id>https://mikyming.online/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>浅谈pathinfo</title>
+    <link href="https://mikyming.online/2020/05/06/pathinfo/"/>
+    <id>https://mikyming.online/2020/05/06/pathinfo/</id>
+    <published>2020-05-06T11:07:38.000Z</published>
+    <updated>2020-05-06T12:27:31.158Z</updated>
+    
+    <content type="html"><![CDATA[<p>在学习<code>thinkPHP</code>的过程中使用控制器进行跳转，结果会定向到<code>404</code>页面。URL是正确的，形如<code>http://localhost/index.php/index/index/flower/a/2/b/3</code>。起先我认为是我代码的问题，结果我发现别人的代码可以运行。我意识到有可能是我的服务器的问题或者和<code>Url Router</code>有关。这件事突然就变得有意思了起来，我决定系统的去思考一下问题在哪并解决它。</p><a id="more"></a>        <h3 id="先看看设计模式"   >          <a href="#先看看设计模式" class="heading-link"><i class="fas fa-link"></i></a>先看看设计模式</h3>      <p><code>thinkPHP</code>是很出名的<code>MVC</code>框架，<code>Model - View - Controller</code>的设计模式使得我所有的交互都首先得通过<code>Controller</code>，再由<code>Controller</code>去进行其它的交互。我检查了我那简单至极的<code>Controller</code>没有发现错误。和<code>Controller</code>相关联的<code>.php</code>文件也没有问题。然后我发现我们老师布置的作业框架并不是完全的<code>MVC</code>设计模式…这个暂且不谈。那么既然代码没有问题，就是环境配置的问题了。</p>        <h3 id="thinkPHP是如何通过Url-Router跳转的"   >          <a href="#thinkPHP是如何通过Url-Router跳转的" class="heading-link"><i class="fas fa-link"></i></a>thinkPHP是如何通过Url Router跳转的</h3>      <p>在<code>thinkPHP</code>进行常规<code>url</code>解析之前，先检测路由，如果发现有路由规则匹配当前的<code>pathinfo</code>，那么<code>URL</code>解析则交给路由处理。</p><p>路由规则是由多条 rule=&gt;router 规则组成的数组。</p><p>路由处理过程大概如下：</p><p>1.遍历路由规则，与当前<code>pathinfo</code>字符串进行匹配，如果合法，则从<code>pathinfo</code>中取出所需要的字符串。</p><p>2.路由中每条规则对应一个<code>router</code>，<code>router</code>中指定对应的模块以及方法，模块和方法可以用第1步中匹配到的字符串进行动态替代。</p><p>3.将剩余的参数都解析并写入到<code>$_GET</code>中。</p><p><code>pathinfo</code>模式：</p><figure class="highlight awk"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>域名<span class="regexp">/项目名/</span>入口文件<span class="regexp">/模块名/</span>方法名<span class="regexp">/键1/</span>值<span class="number">1</span><span class="regexp">/键2/</span>值<span class="number">2</span></span><br></pre></td></tr></table></div></figure><p>这也就是说，我如果想用<code>thinkPHP</code>进行<code>URL</code>跳转，那么我需要开启有关<code>pathinfo</code>的配置。结果经过查询，<code>apache</code>是默认开启<code>pathinfo</code>的，所以老师才得以直接使用而不需要相关配置。我陷入了误区，我以为我使用的是<code>apache</code>。结果实质上我将项目导入<code>PHPstorm</code>后，浏览项目时使用的是<code>PHP</code>直接提供的默认端口号为<code>63342</code>的内置服务器。真的是粗心犯错。。我把web 服务器换为<code>apache</code>后就可以运行了。</p>        <h3 id="后记"   >          <a href="#后记" class="heading-link"><i class="fas fa-link"></i></a>后记</h3>      <p>解决了问题后，为了更加深入的了解<code>URL</code>解析流程，去看了<a href="https://github.com/top-think/thinkphp/blob/master/ThinkPHP/Library/Think/Dispatcher.class.php" target="_blank" rel="noopener"><code>ThinkPHP/Lib/Core/Dispatcher.class.php</code></a>核心类。在这里贴一段：</p><figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分析PATHINFO信息</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">isset</span>($_SERVER[<span class="string">'PATH_INFO'</span>])) &#123;</span><br><span class="line">            $types = explode(<span class="string">','</span>, C(<span class="string">'URL_PATHINFO_FETCH'</span>));</span><br><span class="line">            <span class="keyword">foreach</span> ($types <span class="keyword">as</span> $type) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="number">0</span> === strpos($type, <span class="string">':'</span>)) &#123;</span><br><span class="line">                    <span class="comment">// 支持函数判断</span></span><br><span class="line">                    $_SERVER[<span class="string">'PATH_INFO'</span>] = call_user_func(substr($type, <span class="number">1</span>));</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">elseif</span> (!<span class="keyword">empty</span>($_SERVER[$type])) &#123;</span><br><span class="line">                    $_SERVER[<span class="string">'PATH_INFO'</span>] = (<span class="number">0</span> === strpos($_SERVER[$type], $_SERVER[<span class="string">'SCRIPT_NAME'</span>])) ?</span><br><span class="line">                        substr($_SERVER[$type], strlen($_SERVER[<span class="string">'SCRIPT_NAME'</span>])) : $_SERVER[$type];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></div></figure><p>看完后两个感受：</p><ol><li>中午注释真舒服</li><li><code>PHP</code>果然没有好好学，很多语法都要现查</li></ol>        <h3 id="参考："   >          <a href="#参考：" class="heading-link"><i class="fas fa-link"></i></a>参考：</h3>      <p><span class="exturl"><a class="exturl__link"   href="https://blog.csdn.net/zstxt1989/article/details/9310121"  target="_blank" rel="noopener">ThinkPHP中URL解析原理，以及URL路由使用教程</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在学习&lt;code&gt;thinkPHP&lt;/code&gt;的过程中使用控制器进行跳转，结果会定向到&lt;code&gt;404&lt;/code&gt;页面。URL是正确的，形如&lt;code&gt;http://localhost/index.php/index/index/flower/a/2/b/3&lt;/code&gt;。起先我认为是我代码的问题，结果我发现别人的代码可以运行。我意识到有可能是我的服务器的问题或者和&lt;code&gt;Url Router&lt;/code&gt;有关。这件事突然就变得有意思了起来，我决定系统的去思考一下问题在哪并解决它。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="https://mikyming.online/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="技术探究" scheme="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>读书和写作</title>

@@ -1,0 +1,319 @@
+<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="在学习thinkPHP的过程中使用控制器进行跳转，结果会定向到404页面。URL是正确的，形如http:&#x2F;&#x2F;localhost&#x2F;index.php&#x2F;index&#x2F;index&#x2F;flower&#x2F;a&#x2F;2&#x2F;b&#x2F;3。起先我认为是我代码的问题，结果我发现别人的代码可以运行。我意识到有可能是我的服务器的问题或者和Url Router有关。这件事突然就变得有意思了起来，我决定系统的去思考一下问题在哪并解决它。">
+<meta name="keywords" content="技术探究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈pathinfo">
+<meta property="og:url" content="https:&#x2F;&#x2F;mikyming.online&#x2F;2020&#x2F;05&#x2F;06&#x2F;pathinfo&#x2F;">
+<meta property="og:site_name" content="MikyMing&#39;s Blog">
+<meta property="og:description" content="在学习thinkPHP的过程中使用控制器进行跳转，结果会定向到404页面。URL是正确的，形如http:&#x2F;&#x2F;localhost&#x2F;index.php&#x2F;index&#x2F;index&#x2F;flower&#x2F;a&#x2F;2&#x2F;b&#x2F;3。起先我认为是我代码的问题，结果我发现别人的代码可以运行。我意识到有可能是我的服务器的问题或者和Url Router有关。这件事突然就变得有意思了起来，我决定系统的去思考一下问题在哪并解决它。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-05-06T12:27:31.158Z">
+<meta name="twitter:card" content="summary"><meta name="keywords" content="MikyMing, MikyMing's Blog"><meta name="description" content="技术,生活"><title>浅谈pathinfo | MikyMing's Blog</title><link ref="canonical" href="https://mikyming.online/2020/05/06/pathinfo/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="MikyMing's Blog" type="application/atom+xml">
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">浅谈pathinfo</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2020-05-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2020-05-06</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="阅读次数" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>在学习<code>thinkPHP</code>的过程中使用控制器进行跳转，结果会定向到<code>404</code>页面。URL是正确的，形如<code>http://localhost/index.php/index/index/flower/a/2/b/3</code>。起先我认为是我代码的问题，结果我发现别人的代码可以运行。我意识到有可能是我的服务器的问题或者和<code>Url Router</code>有关。这件事突然就变得有意思了起来，我决定系统的去思考一下问题在哪并解决它。</p>
+<a id="more"></a>
+
+
+        <h3 id="先看看设计模式"   >
+          <a href="#先看看设计模式" class="heading-link"><i class="fas fa-link"></i></a>先看看设计模式</h3>
+      <p><code>thinkPHP</code>是很出名的<code>MVC</code>框架，<code>Model - View - Controller</code>的设计模式使得我所有的交互都首先得通过<code>Controller</code>，再由<code>Controller</code>去进行其它的交互。我检查了我那简单至极的<code>Controller</code>没有发现错误。和<code>Controller</code>相关联的<code>.php</code>文件也没有问题。然后我发现我们老师布置的作业框架并不是完全的<code>MVC</code>设计模式…这个暂且不谈。那么既然代码没有问题，就是环境配置的问题了。</p>
+
+        <h3 id="thinkPHP是如何通过Url-Router跳转的"   >
+          <a href="#thinkPHP是如何通过Url-Router跳转的" class="heading-link"><i class="fas fa-link"></i></a>thinkPHP是如何通过Url Router跳转的</h3>
+      <p>在<code>thinkPHP</code>进行常规<code>url</code>解析之前，先检测路由，如果发现有路由规则匹配当前的<code>pathinfo</code>，那么<code>URL</code>解析则交给路由处理。</p>
+<p>路由规则是由多条 rule=&gt;router 规则组成的数组。</p>
+<p>路由处理过程大概如下：</p>
+<p>1.遍历路由规则，与当前<code>pathinfo</code>字符串进行匹配，如果合法，则从<code>pathinfo</code>中取出所需要的字符串。</p>
+<p>2.路由中每条规则对应一个<code>router</code>，<code>router</code>中指定对应的模块以及方法，模块和方法可以用第1步中匹配到的字符串进行动态替代。</p>
+<p>3.将剩余的参数都解析并写入到<code>$_GET</code>中。</p>
+<p><code>pathinfo</code>模式：</p>
+<figure class="highlight awk"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>域名<span class="regexp">/项目名/</span>入口文件<span class="regexp">/模块名/</span>方法名<span class="regexp">/键1/</span>值<span class="number">1</span><span class="regexp">/键2/</span>值<span class="number">2</span></span><br></pre></td></tr></table></div></figure>
+
+
+<p>这也就是说，我如果想用<code>thinkPHP</code>进行<code>URL</code>跳转，那么我需要开启有关<code>pathinfo</code>的配置。结果经过查询，<code>apache</code>是默认开启<code>pathinfo</code>的，所以老师才得以直接使用而不需要相关配置。我陷入了误区，我以为我使用的是<code>apache</code>。结果实质上我将项目导入<code>PHPstorm</code>后，浏览项目时使用的是<code>PHP</code>直接提供的默认端口号为<code>63342</code>的内置服务器。真的是粗心犯错。。我把web 服务器换为<code>apache</code>后就可以运行了。</p>
+
+        <h3 id="后记"   >
+          <a href="#后记" class="heading-link"><i class="fas fa-link"></i></a>后记</h3>
+      <p>解决了问题后，为了更加深入的了解<code>URL</code>解析流程，去看了<a href="https://github.com/top-think/thinkphp/blob/master/ThinkPHP/Library/Think/Dispatcher.class.php" target="_blank" rel="noopener"><code>ThinkPHP/Lib/Core/Dispatcher.class.php</code></a>核心类。在这里贴一段：</p>
+<figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分析PATHINFO信息</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">isset</span>($_SERVER[<span class="string">'PATH_INFO'</span>])) &#123;</span><br><span class="line">            $types = explode(<span class="string">','</span>, C(<span class="string">'URL_PATHINFO_FETCH'</span>));</span><br><span class="line">            <span class="keyword">foreach</span> ($types <span class="keyword">as</span> $type) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="number">0</span> === strpos($type, <span class="string">':'</span>)) &#123;</span><br><span class="line">                    <span class="comment">// 支持函数判断</span></span><br><span class="line">                    $_SERVER[<span class="string">'PATH_INFO'</span>] = call_user_func(substr($type, <span class="number">1</span>));</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">elseif</span> (!<span class="keyword">empty</span>($_SERVER[$type])) &#123;</span><br><span class="line">                    $_SERVER[<span class="string">'PATH_INFO'</span>] = (<span class="number">0</span> === strpos($_SERVER[$type], $_SERVER[<span class="string">'SCRIPT_NAME'</span>])) ?</span><br><span class="line">                        substr($_SERVER[$type], strlen($_SERVER[<span class="string">'SCRIPT_NAME'</span>])) : $_SERVER[$type];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>看完后两个感受：</p>
+<ol>
+<li>中午注释真舒服</li>
+<li><code>PHP</code>果然没有好好学，很多语法都要现查</li>
+</ol>
+
+        <h3 id="参考："   >
+          <a href="#参考：" class="heading-link"><i class="fas fa-link"></i></a>参考：</h3>
+      <p><span class="exturl"><a class="exturl__link"   href="https://blog.csdn.net/zstxt1989/article/details/9310121"  target="_blank" rel="noopener">ThinkPHP中URL解析原理，以及URL路由使用教程</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://mikyming.online/2020/05/06/pathinfo/">https://mikyming.online/2020/05/06/pathinfo/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/04/20/%E8%AF%BB%E4%B9%A6%E5%92%8C%E5%86%99%E4%BD%9C/"><span class="paginator-prev__text">读书和写作</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#先看看设计模式"><span class="toc-number">1.</span> <span class="toc-text">
+          先看看设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thinkPHP是如何通过Url-Router跳转的"><span class="toc-number">2.</span> <span class="toc-text">
+          thinkPHP是如何通过Url Router跳转的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后记"><span class="toc-number">3.</span> <span class="toc-text">
+          后记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考："><span class="toc-number">4.</span> <span class="toc-text">
+          参考：</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">write code and love life</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/5522mike/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="mailto:wuyyming@gmail.com" target="_blank" rel="noopener" data-popover="social.email" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fas fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MikyMing</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v4.0.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="访问人数"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="浏览总量"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script><script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1588768203999')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body></html>
