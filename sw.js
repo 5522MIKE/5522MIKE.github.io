@@ -24,15 +24,15 @@ var precacheUrls = [];
 
   precacheUrls.push('/');
 
-  precacheUrls.push('/2020/03/23/我的win环境备份/');
+  precacheUrls.push('/2020/04/03/开始搭建你的第一个博客/');
 
   precacheUrls.push('/2019/11/25/Start/');
 
+  precacheUrls.push('/2020/06/01/计网-网络层/');
+
+  precacheUrls.push('/2020/05/06/pathinfo/');
+
   precacheUrls.push('/2020/04/20/读书和写作/');
-
-  precacheUrls.push('/2020/04/20/考研与未来的方向/');
-
-  precacheUrls.push('/2020/04/15/计网-数据链路层/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};

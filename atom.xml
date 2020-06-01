@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mikyming.online/"/>
-  <updated>2020-05-06T12:27:31.158Z</updated>
+  <updated>2020-06-01T12:17:12.810Z</updated>
   <id>https://mikyming.online/</id>
   
   <author>
@@ -17,11 +17,61 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>微信读书</title>
+    <link href="https://mikyming.online/2020/06/01/%E5%BE%AE%E4%BF%A1%E8%AF%BB%E4%B9%A6/"/>
+    <id>https://mikyming.online/2020/06/01/%E5%BE%AE%E4%BF%A1%E8%AF%BB%E4%B9%A6/</id>
+    <published>2020-06-01T12:14:39.000Z</published>
+    <updated>2020-06-01T12:17:12.810Z</updated>
+    
+    <content type="html"><![CDATA[<p>tags: [技术探究] [解决方案] [思考] [随笔]</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;tags: [技术探究] [解决方案] [思考] [随笔]&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="读书" scheme="https://mikyming.online/categories/%E8%AF%BB%E4%B9%A6/"/>
+    
+    
+      <category term="随笔" scheme="https://mikyming.online/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="https://mikyming.online/tags/%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计网-网络层</title>
+    <link href="https://mikyming.online/2020/06/01/%E8%AE%A1%E7%BD%91-%E7%BD%91%E7%BB%9C%E5%B1%82/"/>
+    <id>https://mikyming.online/2020/06/01/%E8%AE%A1%E7%BD%91-%E7%BD%91%E7%BB%9C%E5%B1%82/</id>
+    <published>2020-06-01T12:05:06.000Z</published>
+    <updated>2020-06-01T12:31:50.880Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>网络层是<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/OSI参考模型"  target="_blank" rel="noopener">OSI参考模型</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>中的第三层，介于<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/传输层/4329536"  target="_blank" rel="noopener">传输层</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>和<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/数据链路层/4329290"  target="_blank" rel="noopener">数据链路层</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>之间，它在数据链路层提供的两个相邻端点之间的数据帧的传送功能上，进一步管理网络中的<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/数据通信/897073"  target="_blank" rel="noopener">数据通信</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，将数据设法从源端经过若干个中间<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/节点/865052"  target="_blank" rel="noopener">节点</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>传送到目的端，从而向运输层提供最基本的端到端的<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/数据传送/500685"  target="_blank" rel="noopener">数据传送</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>服务。主要内容有：虚电路分组交换和<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/数据报"  target="_blank" rel="noopener">数据报</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>分组交换、<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/路由选择/10824858"  target="_blank" rel="noopener">路由选择</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/算法/209025"  target="_blank" rel="noopener">算法</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>、阻塞控制方法、<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/X.25协议"  target="_blank" rel="noopener">X.25协议</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>、综合业务数据网（ISDN）、<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/异步传输模式/511955"  target="_blank" rel="noopener">异步传输模式</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>（ATM）及网际互连原理与实现。</p></blockquote><a id="more"></a><p>[TOC]</p>        <h2 id="网络层提供的两种服务"   >          <a href="#网络层提供的两种服务" class="heading-link"><i class="fas fa-link"></i></a>网络层提供的两种服务</h2>      <p>两种服务的共同特点：网络层向上只提供简单的、无连接的、尽最大努力交付的数据报服务，不保证可靠通信</p><ol><li>虚电路：保证可靠通信，必须建立连接</li><li>数据报：尽最大努力发送，不保证可靠通信</li></ol>        <h2 id="网际协议IP"   >          <a href="#网际协议IP" class="heading-link"><i class="fas fa-link"></i></a>网际协议IP</h2>      ]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;网络层是&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/OSI参考模型&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;OSI参考模型&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;中的第三层，介于&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/传输层/4329536&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;传输层&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;和&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/数据链路层/4329290&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据链路层&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;之间，它在数据链路层提供的两个相邻端点之间的数据帧的传送功能上，进一步管理网络中的&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/数据通信/897073&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据通信&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;，将数据设法从源端经过若干个中间&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/节点/865052&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;节点&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;传送到目的端，从而向运输层提供最基本的端到端的&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/数据传送/500685&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据传送&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;服务。主要内容有：虚电路分组交换和&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/数据报&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据报&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;分组交换、&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/路由选择/10824858&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;路由选择&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/算法/209025&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;算法&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;、阻塞控制方法、&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/X.25协议&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;X.25协议&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;、综合业务数据网（ISDN）、&lt;span class=&quot;exturl&quot;&gt;&lt;a class=&quot;exturl__link&quot;   href=&quot;https://baike.baidu.com/item/异步传输模式/511955&quot;  target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;异步传输模式&lt;/a&gt;&lt;span class=&quot;exturl__icon&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/span&gt;（ATM）及网际互连原理与实现。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="https://mikyming.online/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="技术探究" scheme="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/"/>
+    
+  </entry>
+  
+  <entry>
     <title>浅谈pathinfo</title>
     <link href="https://mikyming.online/2020/05/06/pathinfo/"/>
     <id>https://mikyming.online/2020/05/06/pathinfo/</id>
     <published>2020-05-06T11:07:38.000Z</published>
-    <updated>2020-05-06T12:27:31.158Z</updated>
+    <updated>2020-06-01T12:24:51.718Z</updated>
     
     <content type="html"><![CDATA[<p>在学习<code>thinkPHP</code>的过程中使用控制器进行跳转，结果会定向到<code>404</code>页面。URL是正确的，形如<code>http://localhost/index.php/index/index/flower/a/2/b/3</code>。起先我认为是我代码的问题，结果我发现别人的代码可以运行。我意识到有可能是我的服务器的问题或者和<code>Url Router</code>有关。这件事突然就变得有意思了起来，我决定系统的去思考一下问题在哪并解决它。</p><a id="more"></a>        <h3 id="先看看设计模式"   >          <a href="#先看看设计模式" class="heading-link"><i class="fas fa-link"></i></a>先看看设计模式</h3>      <p><code>thinkPHP</code>是很出名的<code>MVC</code>框架，<code>Model - View - Controller</code>的设计模式使得我所有的交互都首先得通过<code>Controller</code>，再由<code>Controller</code>去进行其它的交互。我检查了我那简单至极的<code>Controller</code>没有发现错误。和<code>Controller</code>相关联的<code>.php</code>文件也没有问题。然后我发现我们老师布置的作业框架并不是完全的<code>MVC</code>设计模式…这个暂且不谈。那么既然代码没有问题，就是环境配置的问题了。</p>        <h3 id="thinkPHP是如何通过Url-Router跳转的"   >          <a href="#thinkPHP是如何通过Url-Router跳转的" class="heading-link"><i class="fas fa-link"></i></a>thinkPHP是如何通过Url Router跳转的</h3>      <p>在<code>thinkPHP</code>进行常规<code>url</code>解析之前，先检测路由，如果发现有路由规则匹配当前的<code>pathinfo</code>，那么<code>URL</code>解析则交给路由处理。</p><p>路由规则是由多条 rule=&gt;router 规则组成的数组。</p><p>路由处理过程大概如下：</p><p>1.遍历路由规则，与当前<code>pathinfo</code>字符串进行匹配，如果合法，则从<code>pathinfo</code>中取出所需要的字符串。</p><p>2.路由中每条规则对应一个<code>router</code>，<code>router</code>中指定对应的模块以及方法，模块和方法可以用第1步中匹配到的字符串进行动态替代。</p><p>3.将剩余的参数都解析并写入到<code>$_GET</code>中。</p><p><code>pathinfo</code>模式：</p><figure class="highlight awk"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>域名<span class="regexp">/项目名/</span>入口文件<span class="regexp">/模块名/</span>方法名<span class="regexp">/键1/</span>值<span class="number">1</span><span class="regexp">/键2/</span>值<span class="number">2</span></span><br></pre></td></tr></table></div></figure><p>这也就是说，我如果想用<code>thinkPHP</code>进行<code>URL</code>跳转，那么我需要开启有关<code>pathinfo</code>的配置。结果经过查询，<code>apache</code>是默认开启<code>pathinfo</code>的，所以老师才得以直接使用而不需要相关配置。我陷入了误区，我以为我使用的是<code>apache</code>。结果实质上我将项目导入<code>PHPstorm</code>后，浏览项目时使用的是<code>PHP</code>直接提供的默认端口号为<code>63342</code>的内置服务器。真的是粗心犯错。。我把web 服务器换为<code>apache</code>后就可以运行了。</p>        <h3 id="后记"   >          <a href="#后记" class="heading-link"><i class="fas fa-link"></i></a>后记</h3>      <p>解决了问题后，为了更加深入的了解<code>URL</code>解析流程，去看了<a href="https://github.com/top-think/thinkphp/blob/master/ThinkPHP/Library/Think/Dispatcher.class.php" target="_blank" rel="noopener"><code>ThinkPHP/Lib/Core/Dispatcher.class.php</code></a>核心类。在这里贴一段：</p><figure class="highlight php"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分析PATHINFO信息</span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">isset</span>($_SERVER[<span class="string">'PATH_INFO'</span>])) &#123;</span><br><span class="line">            $types = explode(<span class="string">','</span>, C(<span class="string">'URL_PATHINFO_FETCH'</span>));</span><br><span class="line">            <span class="keyword">foreach</span> ($types <span class="keyword">as</span> $type) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="number">0</span> === strpos($type, <span class="string">':'</span>)) &#123;</span><br><span class="line">                    <span class="comment">// 支持函数判断</span></span><br><span class="line">                    $_SERVER[<span class="string">'PATH_INFO'</span>] = call_user_func(substr($type, <span class="number">1</span>));</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">elseif</span> (!<span class="keyword">empty</span>($_SERVER[$type])) &#123;</span><br><span class="line">                    $_SERVER[<span class="string">'PATH_INFO'</span>] = (<span class="number">0</span> === strpos($_SERVER[$type], $_SERVER[<span class="string">'SCRIPT_NAME'</span>])) ?</span><br><span class="line">                        substr($_SERVER[$type], strlen($_SERVER[<span class="string">'SCRIPT_NAME'</span>])) : $_SERVER[$type];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></div></figure><p>看完后两个感受：</p><ol><li>中午注释真舒服</li><li><code>PHP</code>果然没有好好学，很多语法都要现查</li></ol>        <h3 id="参考："   >          <a href="#参考：" class="heading-link"><i class="fas fa-link"></i></a>参考：</h3>      <p><span class="exturl"><a class="exturl__link"   href="https://blog.csdn.net/zstxt1989/article/details/9310121"  target="_blank" rel="noopener">ThinkPHP中URL解析原理，以及URL路由使用教程</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>]]></content>
     
@@ -37,6 +87,8 @@
     
       <category term="技术探究" scheme="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/"/>
     
+      <category term="思考" scheme="https://mikyming.online/tags/%E6%80%9D%E8%80%83/"/>
+    
   </entry>
   
   <entry>
@@ -44,7 +96,7 @@
     <link href="https://mikyming.online/2020/04/20/%E8%AF%BB%E4%B9%A6%E5%92%8C%E5%86%99%E4%BD%9C/"/>
     <id>https://mikyming.online/2020/04/20/%E8%AF%BB%E4%B9%A6%E5%92%8C%E5%86%99%E4%BD%9C/</id>
     <published>2020-04-20T07:55:43.000Z</published>
-    <updated>2020-04-20T11:48:29.137Z</updated>
+    <updated>2020-06-01T12:25:20.481Z</updated>
     
     <content type="html"><![CDATA[<p>高中读了很多书，大学没怎么读书，反而是看了很多小说，打了很多游戏。</p><p>最近突然惊觉，应该继续读书了。同时和很优秀的几位朋友和前辈聊了一下，决定要开始认真的写作了。用写作来作为知识和思考的积累方式。</p><a id="more"></a><p>看啥书？</p><p>看专业书籍，文学书籍，以及引人思考的blog</p><p>写什么？</p><p>写所有想写的，越多越好。同时一周保持一篇有质量的技术文档。</p><p>怎么写？</p><p>真不知道怎么写。重新看on writing吧。。</p><p>如何进行分发，如何和人进行讨论？</p><p>分发和讨论先自己去找认识的人吧。</p><p>// TODO</p>]]></content>
     
@@ -56,7 +108,7 @@
     </summary>
     
     
-      <category term="随笔" scheme="https://mikyming.online/categories/%E9%9A%8F%E7%AC%94/"/>
+      <category term="读书" scheme="https://mikyming.online/categories/%E8%AF%BB%E4%B9%A6/"/>
     
     
       <category term="思考" scheme="https://mikyming.online/tags/%E6%80%9D%E8%80%83/"/>
@@ -91,7 +143,7 @@
     <link href="https://mikyming.online/2020/04/15/%E8%AE%A1%E7%BD%91-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/"/>
     <id>https://mikyming.online/2020/04/15/%E8%AE%A1%E7%BD%91-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</id>
     <published>2020-04-15T11:50:55.000Z</published>
-    <updated>2020-04-29T06:37:50.180Z</updated>
+    <updated>2020-06-01T12:29:06.912Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>数据链路层是<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/OSI参考模型"  target="_blank" rel="noopener">OSI参考模型</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>中的第二层，介乎于<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/物理层/4329158"  target="_blank" rel="noopener">物理层</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>和<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/网络层/4329439"  target="_blank" rel="noopener">网络层</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>之间。<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/数据链路"  target="_blank" rel="noopener">数据链路</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>层在<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/物理层/4329158"  target="_blank" rel="noopener">物理层</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>提供的服务的基础上向<span class="exturl"><a class="exturl__link"   href="https://baike.baidu.com/item/网络层/4329439"  target="_blank" rel="noopener">网络层</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>提供服务，其最基本的服务是将源自网络层来的数据可靠地传输到相邻节点的目标机网络层。</p></blockquote><a id="more"></a><p>[TOC]</p>        <h2 id="基本概念"   >          <a href="#基本概念" class="heading-link"><i class="fas fa-link"></i></a>基本概念</h2>      <p>数据链路层使用的信道：</p><ul><li>点对点信道：使用一对一的点对点通信方式</li><li>广播信道：使用一对多的广播通信方式，过程比较复杂，需要专用的协议来协调</li></ul><p>本章<strong>最重要</strong>的内容是：</p><ul><li>数据链路层的点对点信道和广播信道的特点，以及这两种信道所使用的协议（PPP协议以及CSMA/CD协议）的特点。</li><li>数据链路层的三个基本问题：封装成帧、透明传输和差错检测</li><li>以太网MAC层的硬件地址</li><li>适配器、转发器、集线器、网桥、以太网交换机的作用以及使用场合。</li></ul>        <h2 id="使用点对点信道的数据链路层"   >          <a href="#使用点对点信道的数据链路层" class="heading-link"><i class="fas fa-link"></i></a>使用点对点信道的数据链路层</h2>      <ol><li><strong>数据链路和帧</strong></li></ol><ul><li><p>链路(物理链路)：从一个结点到相邻结点的一段物理线路，中间没有任何其他的交换节点</p><p>   链路是一条路径的一个组成部分：两台计算机之间的通信路径需要许多链路</p></li><li><p>数据链路(逻辑链路)：把实现了这些通信协议的硬件和软件加到链路上，就构成了数据链路(物理线路+协议)</p></li><li><p>网络适配器：既有硬件也包括软件，实现了通信协议，包括了数据链路层和物理层两层的功能</p></li><li><p>规程：数据链路层中，规程等同于协议</p></li><li><p>帧：点对点信道数据链路层的协议数据单元</p></li><li><p>数据链路层通信时的主要步骤：</p><p>  (1)结点A的数据链路层把网络层交下来的IP数据报添加首部和尾部封装成帧</p><p>  (2)结点A把封装好的帧发送给结点B的数据链路层</p><p>  (3)若结点B的数据链路层收到的帧无差错，则从收到的帧中提取IP数据报上交给网络层；否则丢弃这个帧</p></li><li><p>特点：数据链路层不用考虑物理层如何实现，所以就相当与对等层水平传输</p></li></ul><ol start="2"><li><strong>三个基本问题</strong></li></ol><ul><li>封装成帧</li><li>透明传输</li><li>差错检测</li></ul>        <h2 id="点对点协议PPP"   >          <a href="#点对点协议PPP" class="heading-link"><i class="fas fa-link"></i></a>点对点协议PPP</h2>      <ol><li><strong>PPP协议的特点</strong></li></ol><ul><li><p>作用域：用户计算机和ISP通信时所使用的数据链路层协议</p></li><li><p>PP协议应满足的需求：</p></li></ul><p>(1)简单：对数据链路层的帧，不需要纠错、序号、流量控制，简单作为首要要求；收到帧进行CRC检验，无差错则接收，反之丢弃</p><p>(2)封装成帧：必须规定特殊的字符作为帧定界符，使接收端从收到的比特流中准确找出帧的开始和结束位置</p><p>(3)透明性：必须保证数据传输的透明性，要能解决碰巧出现和帧定界符一样的比特组合的问题</p><p>(4)多种网络层协议：必须能够在同一条物理链路上同时支持多种网络层协议的运行，如IP等；在局域网和路由器上同样如此</p><p>(5)多种类型链路：必须能够在多种链路上运行</p><p>(6)差错检验：必须能够对接收端收到的帧进行检测，并立即丢弃有差错的帧</p><p>(7)检测连接状态：必须能够自动检测链路是否处于正常工作状态</p><p>(8)最大传送单元：必须对每一种类型的点对点链路设置MTU的标准默认值；促进各种实现之间的互操作性，若高层协议发送的分组数据部分超过MTU值，则丢弃并返回差错</p><p>(9)网络层地址协商：必须提供一种机制使通信的两个网络层的实体能够通过协商知道或能够配置彼此的网络层地址</p><p>(10)数据压缩协商：必须提供方法来协商使用数据压缩算法</p><ul><li><p>PPP的特点：不支持多点线路，只支持点对点的链路通信，只支持全双工链路</p></li><li><p>PPP协议不需要的功能：纠错、流量控制、序号、多点线路、半双工或单工链路（只工作在点对点链路）</p></li><li><p>PPP协议的组成：</p></li></ul><p>(1)将IP数据报封装到串行链路的方法；PPP支持异步链路，也支持面向比特的同步链路；IP数据报在PPP帧中数据部分，收到MTU限制</p><p>(2)用来建立、配置和测试链路连接的链路控制协议LCP</p><p>(3)网络控制协议NCP，其中每一个协议支持不同的网络层协议</p><ol start="2"><li><strong>PPP协议的帧格式</strong></li></ol><p><img loading="lazy" src="https://raw.githubusercontent.com/5522MIKE/PicGo/master/md/PPP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B8%A7%E6%A0%BC%E5%BC%8F.png" alt="20190128231023274"></p><ol start="2"><li><strong>PPP协议的工作状态</strong></li></ol><p><img loading="lazy" src="https://raw.githubusercontent.com/5522MIKE/PicGo/master/md/PPP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8A%B6%E6%80%81.png" alt="20190128230546475"></p>        <h2 id="使用广播信道的数据链路层"   >          <a href="#使用广播信道的数据链路层" class="heading-link"><i class="fas fa-link"></i></a>使用广播信道的数据链路层</h2>      <ol><li><strong>局域网的数据链路层</strong></li></ol><ul><li><p>局域网的特点：网络为一个单位所拥有，且地理范围和站点数目均有限</p></li><li><p>局域网的优点：</p></li></ul><p>(1)具有广播功能，从一个站点可方便的访问全网；局域网上主机共享局域网上各种硬件和软件资源</p><p>(2)便于系统的扩展和演变，各设备的位置可灵活调整和改变</p><p>(3)提高了系统的可靠性、可用性和生存性</p><ul><li><em>局域网的拓扑结构：总线网、环形网、星形网</em></li><li>媒体共享技术</li><li>网络协议</li><li>以太网的两个标准：DIX Ethernet V2；IEEE 802.3</li><li>数据链路层的两个子层</li><li>适配器的作用</li></ul><ol start="2"><li><em>CSMA\CD协议</em></li><li><em>使用集线器的星形拓扑</em></li><li><em>以太的网信道利用率</em></li><li><em>以太网的MAC层</em></li></ol><ul><li>MAC帧格式：</li></ul><p><img loading="lazy" src="https://raw.githubusercontent.com/5522MIKE/PicGo/master/md/MAC%E5%B8%A7%E6%A0%BC%E5%BC%8F.png" alt="20190128230546533"></p>        <h2 id="扩展的以太网"   >          <a href="#扩展的以太网" class="heading-link"><i class="fas fa-link"></i></a>扩展的以太网</h2>      <p><strong>物理扩展：集线器、光纤</strong></p><ol><li><strong>在数据链路层扩展以太网</strong></li><li><strong>虚拟局域网</strong></li></ol>        <h2 id="实验部分"   >          <a href="#实验部分" class="heading-link"><i class="fas fa-link"></i></a>实验部分</h2>      <p>无</p>]]></content>
     
@@ -189,7 +241,7 @@
     <link href="https://mikyming.online/2020/02/12/%E7%BE%8E%E8%B5%9B/"/>
     <id>https://mikyming.online/2020/02/12/%E7%BE%8E%E8%B5%9B/</id>
     <published>2020-02-12T05:41:02.000Z</published>
-    <updated>2020-04-21T15:12:15.611Z</updated>
+    <updated>2020-06-01T12:25:09.048Z</updated>
     
     <content type="html"><![CDATA[<p>国赛讲究实力，美赛讲究创新。   </p><p>//本文是为了数学建模美赛做赛前准备</p><a id="more"></a><p>时间：北京时间3月6日上午6时至3月10日上午9时<br>流程：</p><ol><li>3月6日上午6时前往官网查看题目(<span class="exturl"><a class="exturl__link"   href="http://www.comap.com/undergraduate/contests/mcm"  target="_blank" rel="noopener">http://www.comap.com/undergraduate/contests/mcm</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)</li><li>3月10日上午9时前提交论文</li></ol><ul><li><p>1 提交论文电子版：<br>每队必须提交一份论文电子版，邮箱地址：<span class="exturl"><a class="exturl__link"   href="mailto:solutions@comap.com"  target="_blank" rel="noopener">solutions@comap.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。同时提交指导教师一份。截止日期：北京时间2020年3月10日上午9:00。提交的论文不允许有任何增加或修改，否则将被认为违规而取消比赛资格。不允许重复发送，发送之前建议由指导教师定稿。（由于临近比赛结束时网络拥堵，发送邮件可能有延迟，建议7点前完成发送）</p></li><li><p>2 邮件主题为COMAP+队号。例如：COMAP2020449</p></li><li><p>3 用队号作为邮件附件的名称。</p></li><li><p>4 组委会只接受PDF或WORD文件（建议采用ＰＤＦ格式，公式不容易乱）。不包括控制页，程序或软件，因为不会被用在评审过程中（程序代码不是必须的，只要论文就行）。学生、老师或学校名称不应出现在论文的任何部分。摘要页（Summary Sheet）应为论文的第一页。注意：附件必须小于17MB。禁止使用云服务。</p></li><li><p>5 发送论文后，再次登录美赛官网，点击Submit Final Solution Paper。</p></li></ul><p>根据时间顺序分为以下几个部分：</p><ol><li>赛前学习</li></ol><ul><li><p>1 文献和数据网站<br><span class="exturl"><a class="exturl__link"   href="https://scholar.google.com/"  target="_blank" rel="noopener">Google Scholar</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>(需要梯子)<br><span class="exturl"><a class="exturl__link"   href="https://tianchi.aliyun.com/dataset/?spm=5176.12281905.0.0.358b5699IjonJQ"  target="_blank" rel="noopener">阿里开发数据库</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br><span class="exturl"><a class="exturl__link"   href="https://www.cnki.net/"  target="_blank" rel="noopener">cnki</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br><span class="exturl"><a class="exturl__link"   href="https://sedac.ciesin.columbia.edu/"  target="_blank" rel="noopener">nasa</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br><span class="exturl"><a class="exturl__link"   href="https://science.sciencemag.org/"  target="_blank" rel="noopener">science</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span><br><span class="exturl"><a class="exturl__link"   href="https://www.deepdyve.com/"  target="_blank" rel="noopener">deepdyve</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>  </p></li><li><p>2 软件<br>编程工具：MATLAB<br>统计建模：SPSS<br>写作：LaTex/word<br>// TODO<br>流程图制作：ppt、visio、亿图<br>插图制作：PS<br>团队协作：线上交流+语音+在线文档  </p></li><li><p>3 数学建模    // TODO</p><pre><code>模型储备</code></pre></li><li><p>4 题型分析及选择(由于我们只可能在3月参加，故只分析三道)</p></li></ul><figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MCM Problem B</span><br><span class="line">MCM Problem C</span><br><span class="line">ICM Problem F（推荐且论文页数不超过20）</span><br></pre></td></tr></table></div></figure><ul><li>5 论文规范及书写安排 // TODO</li></ul><ol start="2"><li><p>模拟比赛<br>  // TODO</p></li><li><p>赛前准备</p><pre><code>(1) 物资准备：包括但不限于 软件准备 比赛通信 资料网站准备 邮件准备  (2) 分工：模拟比赛后划分  (3) 时间安排: 模拟比赛后安排  </code></pre></li></ol><p>附录：</p><p>2017年国赛B题分析：</p><p>以下分析基于一等奖的两篇优秀论文。</p><p>总述：选择这一题的主要原因是因为这道题较为简单，而且年份较近具有一定的代表性。另外就是中文好理解。</p><p>以下分析只包含个人感受和一定的主观思考。</p><p>优秀论文1：数学建模能力极强。其他方面的能力并不算突出，编程水平较弱。</p><p>优秀论文2：技术水平整体高。包括建模、编程水平还有写作水平。写作格式值得借鉴。</p><p>两篇优秀论文的共通点是数学建模能力都很强，而且均体现了各自对题目的思考，并成功的将思考转化为数学模型。（论文1在问题2处引入了吸引力因子，论文2标黑的都是自己引入的参数或者重点）两篇文章的正文部分均在20页左右（17,23）。我们写作时需要注意美赛题目对页数的要求。</p><p>这里额外说一下关于数学模型的使用。在论文1讨论问题4时，明确提出套用了定价模型的两个公式。问题2仿照库伦定律进行了量化，问题3使用了K-means聚类算法。论文2使用ISODATA算法分析问题1，问题2使用位势函数法。较为专业的地方两篇论文都参考或者使用或参考了成熟的数学模型。</p><p>简单提一下我个人认为的要点：</p><ol><li><p>分析问题和初步的解决思路(这里需要大量的建模知识和信息获取能力)</p></li><li><p>细化思路并探索可行性（难点突破和时间权衡）</p></li><li><p>建立数学模型（论文和成熟模型的查找及化用）</p></li><li><p>编程和写作（协同方案）</p></li></ol>]]></content>
     
@@ -203,6 +255,8 @@
     
       <category term="技术" scheme="https://mikyming.online/categories/%E6%8A%80%E6%9C%AF/"/>
     
+      <category term="思考" scheme="https://mikyming.online/categories/%E6%8A%80%E6%9C%AF/%E6%80%9D%E8%80%83/"/>
+    
     
       <category term="技术探究" scheme="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/"/>
     
@@ -213,7 +267,7 @@
     <link href="https://mikyming.online/2019/12/22/run/"/>
     <id>https://mikyming.online/2019/12/22/run/</id>
     <published>2019-12-22T02:13:59.000Z</published>
-    <updated>2020-04-21T14:19:11.072Z</updated>
+    <updated>2020-06-01T12:24:43.441Z</updated>
     
     <content type="html"><![CDATA[<p><img loading="lazy" src="/img/run.jpg" alt="run"></p><a id="more"></a><p>这个学期我跑了很多次步。有记录的超过2.5公里的就有34次。所以虽然我在长胖，可我还是感觉我的身体更加“轻盈”了哈哈哈。可以说这是我人生中第一次长时间的坚持跑步  //大概算长时间吧。<br>而且打算坚持一下。于是想找一个方法坚持下去。</p><p>我很早就知道村上春树这个人，大概是在初中。我高中很喜欢日本文学，在学校图书馆借了很多日本的书看，其中最多的就是村上先生的书。我喜欢他的那种看似有些冷淡却始终热爱生活的文字。于是这次我还是选择去看看他的书《当我谈跑步时，我在谈些什么》。</p><p>当我在跑步时，我在听歌。我不停的听歌。音乐给我力量。甚至在最后的冲刺时，我会切到一首激昂的歌才开始用尽全力向前跑。这真是非常畅快的体验。</p>]]></content>
     
@@ -224,10 +278,12 @@
     </summary>
     
     
-      <category term="随笔" scheme="https://mikyming.online/categories/%E9%9A%8F%E7%AC%94/"/>
+      <category term="读书" scheme="https://mikyming.online/categories/%E8%AF%BB%E4%B9%A6/"/>
     
     
       <category term="随笔" scheme="https://mikyming.online/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="https://mikyming.online/tags/%E6%80%9D%E8%80%83/"/>
     
   </entry>
   
@@ -236,7 +292,7 @@
     <link href="https://mikyming.online/2019/12/07/thief/"/>
     <id>https://mikyming.online/2019/12/07/thief/</id>
     <published>2019-12-07T07:01:19.000Z</published>
-    <updated>2019-12-22T02:09:34.497Z</updated>
+    <updated>2020-06-01T12:24:33.955Z</updated>
     
     <content type="html"><![CDATA[<p><img loading="lazy" src="/img/thief.jpg" alt="小偷家族"></p><a id="more"></a><p>世界上真的只有一种病 是穷病吗？<br>不是的。<br>这个世界还有一种病叫 缺爱。<br>真是一部很压抑又很温暖的电影。<br>看完了<br>不知道为什么想到了东野的嫌疑人x的献身，石神几欲呕出灵魂。而在小偷家族中，一切归于平静。<br>所有的一切都被社会和时间慢慢的抹去。<br>当这一种色彩渐渐消失之后，<br>这六个毫无血缘关系的人，<br>他们的心还在一切。<br>因为什么？<br>或许就像影片中的父亲说的那样。<br>是爱将这个家族联系在一起。</p><p>小偷家族<br>他们中很多人世第三只手，<br>他们全都有两颗心。<br>一个留给自己<br>一个分享给别人。<br>他们在路上拾起别人丢弃的心。</p><p>到底是什么导致了这样的家族出现呢？<br>很多很多原因，<br>很多我现在根本不能完全理解和领会的东西。<br>不过这个家族在被发现后，<br>至少社会给了他们最低的保障。<br>我们能保证我们的社会有那个兜底的网吗？<br>让失足的人不会就此沉沦，<br>让沉沦的人不会跌下深渊。<br>我们有这种爱吗？<br>这种爱又是什么爱呢？<br>不知道。<br>我真的搞得懂这部电影在说什么吗？<br>不知道。<br>不知道多少年后我会重新再回来看一遍他。<br>希望那时我能回答几个知道。</p>]]></content>
     
@@ -251,6 +307,8 @@
     
     
       <category term="随笔" scheme="https://mikyming.online/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="思考" scheme="https://mikyming.online/tags/%E6%80%9D%E8%80%83/"/>
     
   </entry>
   
@@ -349,13 +407,13 @@
     <link href="https://mikyming.online/2019/11/25/Hello%20world/"/>
     <id>https://mikyming.online/2019/11/25/Hello%20world/</id>
     <published>2019-11-25T12:16:18.000Z</published>
-    <updated>2020-04-20T11:21:50.212Z</updated>
+    <updated>2020-06-01T12:14:10.356Z</updated>
     
-    <content type="html"><![CDATA[<p>博客的大致框架：<br>    categoies: 技术 随笔<br>    tags: [技术探究] [解决方案] [思考] [随笔]</p><a id="more"></a><p>这里啥也没有。</p>]]></content>
+    <content type="html"><![CDATA[<p>博客的大致框架：<br>    categoies: 技术 随笔 读书<br>    tags: [技术探究] [解决方案] [思考] [随笔]</p><a id="more"></a><p>这里啥也没有。</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;博客的大致框架：&lt;br&gt;    categoies: 技术 随笔&lt;br&gt;    tags: [技术探究] [解决方案] [思考] [随笔]&lt;/p&gt;
+      &lt;p&gt;博客的大致框架：&lt;br&gt;    categoies: 技术 随笔 读书&lt;br&gt;    tags: [技术探究] [解决方案] [思考] [随笔]&lt;/p&gt;
     
     </summary>
     
