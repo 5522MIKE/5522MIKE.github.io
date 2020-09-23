@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mikyming.online/"/>
-  <updated>2020-06-09T15:52:01.715Z</updated>
+  <updated>2020-09-20T10:09:17.420Z</updated>
   <id>https://mikyming.online/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue</title>
+    <link href="https://mikyming.online/2020/09/20/vue/"/>
+    <id>https://mikyming.online/2020/09/20/vue/</id>
+    <published>2020-09-20T09:48:52.000Z</published>
+    <updated>2020-09-20T10:09:17.420Z</updated>
+    
+    <content type="html"><![CDATA[<p>tags: [] [解决方案] [思考] [随笔]</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;tags: [] [解决方案] [思考] [随笔]&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="技术" scheme="https://mikyming.online/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="技术探究" scheme="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/"/>
+    
+  </entry>
   
   <entry>
     <title>微信读书</title>
@@ -218,9 +241,9 @@
     <link href="https://mikyming.online/2020/03/23/%E6%88%91%E7%9A%84win%E7%8E%AF%E5%A2%83%E5%A4%87%E4%BB%BD/"/>
     <id>https://mikyming.online/2020/03/23/%E6%88%91%E7%9A%84win%E7%8E%AF%E5%A2%83%E5%A4%87%E4%BB%BD/</id>
     <published>2020-03-23T08:22:38.000Z</published>
-    <updated>2020-04-03T08:57:21.212Z</updated>
+    <updated>2020-09-23T15:15:06.654Z</updated>
     
-    <content type="html"><![CDATA[<p>最近可能要重装电脑或者购置新的机器，故记录现在我需要的一台win系统的电脑应该需要什么样的环境。</p><a id="more"></a>        <h2 id="环境"   >          <a href="#环境" class="heading-link"><i class="fas fa-link"></i></a>环境</h2>              <h3 id="语言类"   >          <a href="#语言类" class="heading-link"><i class="fas fa-link"></i></a>语言类</h3>      <p>MinGW：Windows下的基于GCC 程序开发环境<br>PHP<br>JAVA<br>Node.js<br>Python</p>        <h3 id="工具类"   >          <a href="#工具类" class="heading-link"><i class="fas fa-link"></i></a>工具类</h3>      <p>Git：版本管理工具，必用<br>Terminal：终端，别用cmd了。<br>WSL2：win下的Linux子系统。在某些环境下很好用，比如搭配vscode写代码。  </p>        <h3 id="数据库"   >          <a href="#数据库" class="heading-link"><i class="fas fa-link"></i></a>数据库</h3>      <p>mysql<br>sqlserver</p>        <h3 id="服务器"   >          <a href="#服务器" class="heading-link"><i class="fas fa-link"></i></a>服务器</h3>      <p>apache<br>nginx</p>        <h2 id="日常软件"   >          <a href="#日常软件" class="heading-link"><i class="fas fa-link"></i></a>日常软件</h2>      <p>火绒：十分简洁的安全软件<br>everything：电脑文件查找软件，可以极快的找到文件<br>7-zip/Bandzip：优秀的压缩工具<br>Internet Download Manager：下载神器<br>搜狗输入法<br>sumatraPDF：PDF阅读器<br>office：特别提一下visio，绘图软件<br>CAJViewer：文献阅读器，用来读知网论文很方便  </p>        <h2 id="专业工具"   >          <a href="#专业工具" class="heading-link"><i class="fas fa-link"></i></a>专业工具</h2>              <h3 id="编程类"   >          <a href="#编程类" class="heading-link"><i class="fas fa-link"></i></a>编程类</h3>      <p>JetBrain全家桶(toolbox，PHPstorm，DataGrip，Clion，IDEA 等)：IDE世界里最强大的全家桶。<strong>学生可以用.edu邮箱免费使用</strong><br>CodeBlocks：优秀且简单易用的C/C++IDE<br>Eclipse：上古神器，一般用来写JAVA。实则干啥都能<br>VSCode：一个介于IDE和编辑器的神器。熟练使用插件和配置可以达到<strong>awesome</strong>的效果。  强力推荐<br>Xshell：SSH客户端。我一般用来连接云服务器<br>VMware：虚拟机软件  </p>        <h3 id="工程类"   >          <a href="#工程类" class="heading-link"><i class="fas fa-link"></i></a>工程类</h3>      <p>Cisco Packet Tracer：网络仿真软件，学计网时候用的<br>Wireshark：网络封包分析软件<br>Postman: 接口测试<br>Axure：原型设计工具，可以学生认证<br>XMind：思维导图<br>腾讯会议：用来小组讨论十分方便和稳定  </p>        <h3 id="数学、论文类"   >          <a href="#数学、论文类" class="heading-link"><i class="fas fa-link"></i></a>数学、论文类</h3>      <p>MATLAB：数学软件。这个也有很多学校买了，可以去学校软件站看看<br>SPSS：数据分析软件<br>Typora：神仙编辑器，最好的markdown编辑器。本文就是用它写的<br>LaTeX：排版系统，用来写论文非常好  </p>        <h3 id="其他"   >          <a href="#其他" class="heading-link"><i class="fas fa-link"></i></a>其他</h3>      <p>rufus：引导盘制作工具<br>Adobe全家桶(PS，Au，Pr 等)<br>ShadowsocksR/v2rayN：科 学 上 网  </p>        <h2 id="娱乐软件"   >          <a href="#娱乐软件" class="heading-link"><i class="fas fa-link"></i></a>娱乐软件</h2>      <p>Chrome<br>Firefox<br>Edge<br>Tim/QQ<br>微信<br>网易云音乐<br>百度网盘<br>PotPlayer：极强大的播放器<br>Steam(Wallpaper Engine,Fences)<br>WeGame<br>Origin  </p>        <h2 id="一些简单的搭配应用场景"   >          <a href="#一些简单的搭配应用场景" class="heading-link"><i class="fas fa-link"></i></a>一些简单的搭配应用场景</h2>      <p>// TODO 待更  </p>]]></content>
+    <content type="html"><![CDATA[<p>最近可能要重装电脑或者购置新的机器，故记录现在我需要的一台win系统的电脑应该需要什么样的环境。</p><a id="more"></a><p><strong>装个linux它不香吗</strong></p>        <h2 id="环境"   >          <a href="#环境" class="heading-link"><i class="fas fa-link"></i></a>环境</h2>              <h3 id="语言类"   >          <a href="#语言类" class="heading-link"><i class="fas fa-link"></i></a>语言类</h3>      <p>MinGW：Windows下的基于GCC 程序开发环境<br>PHP<br>JAVA<br>Node.js<br>Python</p>        <h3 id="工具类"   >          <a href="#工具类" class="heading-link"><i class="fas fa-link"></i></a>工具类</h3>      <p>Git：版本管理工具，必用<br>Terminal：终端，别用cmd了。<br>WSL2：win下的Linux子系统。在某些环境下很好用，比如搭配vscode写代码。  </p>        <h3 id="数据库"   >          <a href="#数据库" class="heading-link"><i class="fas fa-link"></i></a>数据库</h3>      <p>mysql<br>sqlserver</p>        <h3 id="服务器"   >          <a href="#服务器" class="heading-link"><i class="fas fa-link"></i></a>服务器</h3>      <p>apache<br>nginx</p>        <h2 id="日常软件"   >          <a href="#日常软件" class="heading-link"><i class="fas fa-link"></i></a>日常软件</h2>      <p>火绒：十分简洁的安全软件<br>everything：电脑文件查找软件，可以极快的找到文件<br>7-zip/Bandzip：优秀的压缩工具<br>Internet Download Manager：下载神器<br>搜狗输入法<br>sumatraPDF：PDF阅读器<br>office：特别提一下visio，绘图软件<br>CAJViewer：文献阅读器，用来读知网论文很方便  </p>        <h2 id="专业工具"   >          <a href="#专业工具" class="heading-link"><i class="fas fa-link"></i></a>专业工具</h2>              <h3 id="编程类"   >          <a href="#编程类" class="heading-link"><i class="fas fa-link"></i></a>编程类</h3>      <p>JetBrain全家桶(toolbox，PHPstorm，DataGrip，Clion，IDEA 等)：IDE世界里最强大的全家桶。<strong>学生可以用.edu邮箱免费使用</strong><br>CodeBlocks：优秀且简单易用的C/C++IDE<br>Eclipse：上古神器，一般用来写JAVA。实则干啥都能 //实则是学校要用<br>VSCode：一个介于IDE和编辑器的神器。熟练使用插件和配置可以达到<strong>awesome</strong>的效果。  强力推荐<br>Xshell：SSH客户端。我一般用来连接云服务器<br>VMware：虚拟机软件  </p>        <h3 id="工程类"   >          <a href="#工程类" class="heading-link"><i class="fas fa-link"></i></a>工程类</h3>      <p>Cisco Packet Tracer：网络仿真软件，学计网时候用的<br>Wireshark：网络封包分析软件<br>Postman: 接口测试<br>Axure：原型设计工具，可以学生认证<br>XMind：思维导图<br>腾讯会议：用来小组讨论十分方便和稳定  </p>        <h3 id="数学、论文类"   >          <a href="#数学、论文类" class="heading-link"><i class="fas fa-link"></i></a>数学、论文类</h3>      <p>MATLAB：数学软件。这个也有很多学校买了，可以去学校软件站看看<br>SPSS：数据分析软件<br>Typora：神仙编辑器，最好的markdown编辑器。本文就是用它写的<br>LaTeX：排版系统，用来写论文非常好  </p>        <h3 id="其他"   >          <a href="#其他" class="heading-link"><i class="fas fa-link"></i></a>其他</h3>      <p>rufus：引导盘制作工具<br>Adobe全家桶(PS，Au，Pr 等)<br>ShadowsocksR/v2rayN：误  </p>        <h2 id="娱乐软件"   >          <a href="#娱乐软件" class="heading-link"><i class="fas fa-link"></i></a>娱乐软件</h2>      <p>Chrome<br>Firefox<br>Edge<br>Tim/QQ<br>微信<br>网易云音乐<br>百度网盘<br>PotPlayer：极强大的播放器<br>Steam(Wallpaper Engine,Fences)<br>WeGame<br>Origin  </p>        <h2 id="一些简单的搭配应用场景"   >          <a href="#一些简单的搭配应用场景" class="heading-link"><i class="fas fa-link"></i></a>一些简单的搭配应用场景</h2>      <p>// TODO 待更<br>vscode + wsl/wsl2</p>]]></content>
     
     <summary type="html">
     
