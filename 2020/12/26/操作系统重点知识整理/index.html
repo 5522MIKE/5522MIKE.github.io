@@ -1,0 +1,461 @@
+<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。可能会很乱哈哈哈哈哈哈。">
+<meta name="keywords" content="技术探究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统重点知识整理">
+<meta property="og:url" content="https:&#x2F;&#x2F;mikyming.online&#x2F;2020&#x2F;12&#x2F;26&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86&#x2F;">
+<meta property="og:site_name" content="MikyMing&#39;s Blog">
+<meta property="og:description" content="万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。可能会很乱哈哈哈哈哈哈。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-01-02T09:49:30.034Z">
+<meta name="twitter:card" content="summary"><meta name="keywords" content="MikyMing, MikyMing's Blog"><meta name="description" content="技术,生活"><title>操作系统重点知识整理 | MikyMing's Blog</title><link ref="canonical" href="https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="MikyMing's Blog" type="application/atom+xml">
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">操作系统重点知识整理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-12-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-02</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。可能会很乱哈哈哈哈哈哈。</p>
+<a id="more"></a>
+
+
+        <h2 id="第一章-操作系统引论"   >
+          <a href="#第一章-操作系统引论" class="heading-link"><i class="fas fa-link"></i></a>第一章 操作系统引论</h2>
+      
+        <h2 id="第二章-进程的描述与控制"   >
+          <a href="#第二章-进程的描述与控制" class="heading-link"><i class="fas fa-link"></i></a>第二章 进程的描述与控制</h2>
+      <ol>
+<li>练习题，P91，T2</li>
+<li>为什么程序并发执行会产生间断性特征？</li>
+<li>在操作系统中为什么要引入进程概念？它会产生什么样的影响?</li>
+</ol>
+<p>为了使程序在多道程序环境下能并发执行，并对并发执行的程序加以控制和描述，在操作系统中引入了进程概念</p>
+<ol start="4">
+<li>试从动态性，并发性和独立性上比较进程和程序?</li>
+</ol>
+<p>(1)动态性是进程最基本的特性，表现为由创建而产生，由调度而执行，因得不到资源而暂停执行，由撤销而消亡。进程有一定的生命期，而程序只是一组有序的指令集合，是静态实体。<br>(2)并发性是进程的重要特征，同时也是OS 的重要特征。引入进程的目的正是为了使其程序能和其它进程的程序并发执行，而程序是不能并发执行的。<br>(3)独立性是指进程实体是一个能独立运行的基本单位，也是系统中独立获得资源和独立调度的基本单位。对于未建立任何进程的程序，不能作为独立单位参加运行。</p>
+<ol start="5">
+<li>试说明PCB 的作用，为什么说PCB 是进程存在的惟一标志？</li>
+</ol>
+<p>PCB 是进程实体的一部分，是操作系统中最重要的记录型<strong>数据结构</strong>。作用是使一个在多道程序环境下不能独立运行的程序，成为一个能独立运行的基本单位，成为能与其它进程并发执行的进程。OS是根据PCB对并发执行的进程进行控制和管理的。</p>
+<ol start="6">
+<li>PCB提供了进程管理和进程调度所需要的那些信息？</li>
+<li>进程控制块的组织方式有哪几种？</li>
+<li>何谓操作系统内核？内核的主要功能是什么？</li>
+<li>试说明进程在三个基本状态之间转换的典型原因。</li>
+</ol>
+<p>（1）就绪状态→执行状态：进程分配到CPU资源<br>（2）执行状态→就绪状态：时间片用完<br>（3）执行状态→阻塞状态：I/O请求<br>（4）阻塞状态→就绪状态：I/O完成</p>
+<ol start="10">
+<li>试从调度性、并发性、拥有资源及系统开销方面对进程和线程进行比较。</li>
+<li>线程控制块TCB包含了哪些内容？</li>
+</ol>
+
+        <h2 id="第三章-处理机调度和死锁"   >
+          <a href="#第三章-处理机调度和死锁" class="heading-link"><i class="fas fa-link"></i></a>第三章 处理机调度和死锁</h2>
+      <ol>
+<li>高级调度与低级调度的主要任务是什么？为什么要引入中级调度？</li>
+</ol>
+<p>高级调度的主要任务是根据某种算法，把外存上处于后备队列中的那些作业调入内存。<br>低级调度是保存处理机的现场信息，按某种算法先取进程，再把处理器分配给进程。<br>引入中级调度的主要目的是为了提高内存利用率和系统吞吐量。<br>使那些暂时不能运行的进程不再占用内存资源，将它们调至外存等待，把进程状态改为就绪驻外存状态或挂起状态。</p>
+<ol start="2">
+<li>处理机调度算法的共同目标是什么？批处理系统的调度目标又是什么？</li>
+<li>在抢占调度方式中，抢占的原则是什么？</li>
+</ol>
+<p>抢占的原则有：时间片原则、优先权原则、短作业优先权原则等。</p>
+<ol start="4">
+<li>在选择调度方式和调度算法时，应遵循的准则是什么？</li>
+</ol>
+<p>面向用户的准则：周转时间短、响应时间快、截止时间的保证、优先权准则。<br>面向系统的准则：系统吞吐量高、处理机利用率好、各类资源的平衡利用。</p>
+<ol start="5">
+<li>何谓静态和动态优先级？确定静态优先级的依据是什么？</li>
+</ol>
+<p>静态优先级是指在创建进程时确定且在进程的整个运行期间保持不变的优先级。<br>动态优先级是指在创建进程时赋予的优先权， 可以随进程推进或随其等待时间增加而改变的优先级，可以获得更好的调度性能。 <br>确定进程优先级的依据：进程类型、进程对资源的需求和用户要求。</p>
+<ol start="6">
+<li>试比较 FCFS 和 SPF 两种进程调度算法。</li>
+</ol>
+<p>相同点：两种调度算法都可以用于作业调度和进程调度。 <br>不同点： <br>FCFS  调度算法每次都从后备队列中选择一个或多个最先进入该队列的作业， 将它们调入内存、分配资源、创建进程、插入到就绪队列。该算法有利于长作业 /进程，不利于短作业 /进程。 <br>SPF 算法每次调度都从后备队列中选择一个或若干个估计运行时间最短的作 业，调入内存中运行。该算法有利于短作业 /进程，不利于长作业 /进程。</p>
+<ol start="7">
+<li>在时间片轮转法中，应如何确定时间片的大小？</li>
+</ol>
+<p>时间片应略大于一次典型的交互需要的时间。 一般应考虑三个因素： 系统对相应时间的要求、就绪队列中进程的数目和系统的处理能力。</p>
+<ol start="8">
+<li>为什么说传统的几种调度算法都不能算是公平调度算法？</li>
+<li>保证调度算法是如何做到调度的公平性的？</li>
+<li>按调度方式可将实时调度算法分为哪几种？</li>
+<li>什么是最早截止时间优先调度算法？举例说明。</li>
+</ol>
+<p>根据任务的开始截止时间确定的任务优先级调度算法。 截止时间越早则优先级越高。 该算法要求在系统中保持一个实时任务就绪队列，该队列按各任务截止时间的先后排序。 举例：非抢占式调度方式用于非周期实时任务。</p>
+<ol start="12">
+<li>什么是最低松弛度优先调度算法？举例说明之</li>
+</ol>
+<p>该算法是根据任务紧急 ( 或松弛 )的程度，来确定任务的优先级。任务的紧急程度愈高， 为该任务所赋予的优先级就愈高，以使之优先执行。例如，一个任务在   200 ms 时必须完成，而它本身所需的运行时间就有 100 ms ，因此，调度程序必须在 100 ms 之前调度执行，该任务的紧急程度 (松弛程度 )为 100 ms 。又如，另一任务在 400 ms 时必须完成，它本身需要运行 150 ms ，则其松弛程度为 250 ms 。</p>
+<ol start="13">
+<li>何谓“优先级倒置”现象，可采用什么方法来解决？</li>
+<li>试举例说明竞争不可抢占资源所引起的死锁</li>
+<li>为了破坏“请求和保持”条件而提出了两种协议，试比较这两种协议</li>
+<li>何谓死锁？产生死锁的原因和必要条件是什么?</li>
+<li>请详细说明可通过哪些途径预防死锁。</li>
+<li>练习题，P128</li>
+<li>练习题，P128</li>
+</ol>
+
+        <h2 id="第四章-存储器管理"   >
+          <a href="#第四章-存储器管理" class="heading-link"><i class="fas fa-link"></i></a>第四章 存储器管理</h2>
+      <ol>
+<li>为什么要配置层次式存储器？</li>
+</ol>
+<p>设置多个存储器可以使存储器两端的硬件能并行工作；采用多级存储系统，特别是 Cache 技术，是减轻存储器带宽对系统性能影响的最佳结构方案；在微处理机内部设置各 种缓冲存储器，减轻对存储器存取的压力。增加CPU中寄存器数量大大缓解对存储器压力。</p>
+<ol start="2">
+<li>何谓静态链接？何谓装入时动态链接和运行时的动态链接？P120</li>
+</ol>
+<p>静态链接是指在程序运行前，先将各目标模块及它们所需的库函数，链接成一个完整的装配模块，以后不再拆开的链接方式。 <br>装入时动态链接是指将用户源程序编译后得到的一组目标模块，在装入内存时采用边装入边链接的链接方式。 <br>运行时动态链接是指对某些目标模块的链接，是在程序执行中需要该目标模块时，才对它进行的链接。</p>
+<ol start="3">
+<li>何谓装入时动态链接？有何优点？</li>
+<li>何谓运行时动态链接？有何优点？</li>
+<li>为什么要引入动态重定位？如何实现？ </li>
+</ol>
+<p>在程序执行过程中，每当访问指令或数据时，将要访问的程序或数据的逻辑地址转换成 物理地址，引入了动态重定位； 具体实现方法是在系统中增加一个重定位寄存器，用来装入程序在内存中的起始地址， 程序执行时，真正访问的内存地址是相对地址与重定位寄存器中的地址相加之和，从而实现 动态重定位</p>
+<ol start="6">
+<li>在采用首次适应算法回收内存时，可能出现哪几种情况？应怎样处理这些情况？ </li>
+</ol>
+<p>在采用首次适应算法回收内存时可能出现4种情况： （1）回收区前邻空闲区。将回收区与前邻空闲区合并，将前邻空闲区大小修改为两者之和。 <br>（2）回收区后邻空闲区。将两区合并，改后邻空闲区始址为回收区始址，大小为两者之和。 <br>（3）回收区前后均邻空闲区。将三个分区合并，修改前邻空闲区大小为三者之和。 <br>（4）回收区前后均不邻空闲区。为回收区设置空闲区表项，填入回收区始址和大小并插入 空闲区队列。</p>
+<ol start="7">
+<li>什么是基于索引搜索的动态分区匹配算法？它可分为哪几种？</li>
+<li>练习题，P162，T11</li>
+<li>对文件区管理的目标和对对换空间管理的目标有何不同？</li>
+<li>在以进程为单位进行对换时，每次是否都将整个进程换出？为什么？</li>
+</ol>
+<p>在以进程为单位进行对换时，并非每次都将整个进程换出。这是因为： <br>(1)从结构上讲，进程由程序段、数据段和进程控制块组成的，其中进程控制块总有部分或全部常驻内存，不被换出。 <br>(2)程序段和数据段可能正被若干进程共享，此时它们也不能换出</p>
+<ol start="11">
+<li>什么是页面？什么是物理块？页面的大小应如何确定？</li>
+<li>为实现分页存储管理，需要哪些硬件的支持？ </li>
+</ol>
+<p>动态重定位技术、虚拟存储技术、多道程序设计技术</p>
+<ol start="13">
+<li>在具有快表的段页式存储管理方式中，如何实现地址变换？</li>
+</ol>
+<p>在CPU给出有效地址后，由地址变换机构自动将页号P送入高速缓冲寄存器，并将此 页号与高速缓存中的所有页号比较，若找到匹配页号，表示要访问的页表项在快表中。可直 接从快表读出该页对应物理块号，送到物理地址寄存器中。如快表中没有对应页表项，则再 访问内存页表，找到后，把从页表项中读出物理块号送地址寄存器；同时修改快表，将此页 表项存入快表。但若寄存器已满，则OS必须找到合适的页表项换出。</p>
+<ol start="14">
+<li>分页和分段存储管理有何去呗？</li>
+<li>试全面比较连续分配和离散分配方式。</li>
+</ol>
+
+        <h2 id="第五章-虚拟存储器"   >
+          <a href="#第五章-虚拟存储器" class="heading-link"><i class="fas fa-link"></i></a>第五章 虚拟存储器</h2>
+      <ol>
+<li>常规存储器管理方式具有哪两大特征？它对系统性能有何影响？</li>
+<li>什么是程序运行时的时间局限性和空间局限性？</li>
+<li>实现虚拟存储器需要哪些硬件支持？</li>
+</ol>
+<p>（1）请求分页（段）的页（段）表机制（2）缺页（段）中断机构（3）地址变换机构</p>
+<ol start="4">
+<li>在请求分页系统中，页表应包括哪些数据项？每项的作用是什么？ </li>
+</ol>
+<p>页表应包括：页号、物理块号、状态位P、访问字段A、修改位M和外存地址。 其中状态位P 指示该页是否调入内存，供程序访问时参考；访问字段A 用于记录本页在一 段时间内被访问的次数，或最近已有多长时间未被访问，提供给置换算法选择换出页面时参 考；修改位M 表示该页在调入内存后是否被修改过；外存地址用于指出该页在外存上的地 址，通常是物理块号，供调入该页时使用。</p>
+<ol start="5">
+<li>试比较缺页终端机构与一般中断机构，他们之前有何明显的区别？</li>
+<li>试说明请求分页系统中的地址变换功过程。</li>
+<li>在请求分页系统中，应从何处将所需页面调入内存？ </li>
+</ol>
+<p>请求分页系统中的缺页从何处调入内存分三种情况： （1）系统拥有足够对换区空间时，可以全部从对换区调入所需页面，提高调页速度。在进程运行前将与该进程有关的文件从文件区拷贝到对换区。 <br>（2）系统缺少足够对换区空间时，不被修改的文件直接从文件区调入；当换出这些页面时，未被修改的不必换出，再调入时，仍从文件区直接调入。对于可能修改的，在换出时便调到对换区，以后需要时再从对换区调入。<br>（3）UNIX 方式。未运行页面从文件区调入。曾经运行过但被换出页面，下次从对换区调入。UNIX系统允许页面共享，某进程请求的页面有可能已调入内存，直接使用不再调入。</p>
+<ol start="8">
+<li><strong>在请求分页系统中，常采用哪几种页面置换算法？</strong></li>
+</ol>
+<p>采用的页面置换算法有：最佳置换算法和先进先出置换算法，最近最久未使用（LRU）置换算法，Clock置换算法，最少使用置换算法，页面缓冲算法等</p>
+<ol start="9">
+<li>实现LRU算法所需的硬件支持是什么?</li>
+</ol>
+<p>需要寄存器和栈等硬件支持。寄存器用于记录某进程在内存中各页的使用情况，栈用于 保存当前使用的各个页面的页面号。</p>
+<ol start="10">
+<li>试说明改进型 Clock 置换算法的基本原理. </li>
+</ol>
+<p>因为修改过的页面在换出时付出的开销比未被修改过的页面大，在改进型Clock 算法 中，既考虑页面的使用情况，还要增加置换代价的因素；在选择页面作为淘汰页面时，把同 时满足未使用过和未被修改作为首选淘汰页面。 </p>
+<ol start="11">
+<li>影响页面换进换出频率的若干因素是什么？</li>
+<li>页面缓冲算法的主要特点是什么？它是如何实现的</li>
+<li>在请求分页系统汇总，产生“抖动”的原因是什么？</li>
+<li>何谓工作集？它是基于什么原理确定的？</li>
+<li>当前可以利用哪几种方式来防止“抖动”？</li>
+</ol>
+
+        <h2 id="第六章-输入输出系统"   >
+          <a href="#第六章-输入输出系统" class="heading-link"><i class="fas fa-link"></i></a>第六章 输入输出系统</h2>
+      
+        <h2 id="第七章-文件管理"   >
+          <a href="#第七章-文件管理" class="heading-link"><i class="fas fa-link"></i></a>第七章 文件管理</h2>
+      
+        <h2 id="第八章-磁盘存储器的管理"   >
+          <a href="#第八章-磁盘存储器的管理" class="heading-link"><i class="fas fa-link"></i></a>第八章 磁盘存储器的管理</h2>
+      
+        <h2 id="第九章-操作系统接口"   >
+          <a href="#第九章-操作系统接口" class="heading-link"><i class="fas fa-link"></i></a>第九章 操作系统接口</h2>
+      </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/12/26/%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">算法入门</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/10/07/%E5%9B%9E%E5%BD%A2%E9%92%88%E4%B8%8E10%E4%B8%AA%E6%89%B9%E8%AF%84%E8%80%85%E8%81%8A%E5%A4%A9/"><span class="paginator-prev__text">回形针与10个批评者聊天</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-操作系统引论"><span class="toc-number">1.</span> <span class="toc-text">
+          第一章 操作系统引论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-进程的描述与控制"><span class="toc-number">2.</span> <span class="toc-text">
+          第二章 进程的描述与控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章-处理机调度和死锁"><span class="toc-number">3.</span> <span class="toc-text">
+          第三章 处理机调度和死锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-存储器管理"><span class="toc-number">4.</span> <span class="toc-text">
+          第四章 存储器管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五章-虚拟存储器"><span class="toc-number">5.</span> <span class="toc-text">
+          第五章 虚拟存储器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-输入输出系统"><span class="toc-number">6.</span> <span class="toc-text">
+          第六章 输入输出系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章-文件管理"><span class="toc-number">7.</span> <span class="toc-text">
+          第七章 文件管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-磁盘存储器的管理"><span class="toc-number">8.</span> <span class="toc-text">
+          第八章 磁盘存储器的管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第九章-操作系统接口"><span class="toc-number">9.</span> <span class="toc-text">
+          第九章 操作系统接口</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">write code and love life</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/5522mike/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="mailto:wuyyming@gmail.com" target="_blank" rel="noopener" data-popover="social.email" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fas fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MikyMing</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.0.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Unique Visitor"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Page View"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script><script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1609581003245')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body></html>
