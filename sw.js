@@ -26,13 +26,13 @@ var precacheUrls = [];
 
   precacheUrls.push('/2019/11/25/Start/');
 
-  precacheUrls.push('/2020/12/26/算法入门/');
-
   precacheUrls.push('/2020/12/26/操作系统重点知识整理/');
 
   precacheUrls.push('/2020/10/07/回形针与10个批评者聊天/');
 
   precacheUrls.push('/2020/09/20/vue/');
+
+  precacheUrls.push('/2020/06/01/微信读书/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};

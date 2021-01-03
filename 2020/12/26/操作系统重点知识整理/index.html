@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。可能会很乱哈哈哈哈哈哈。">
+<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。持续更新……">
 <meta name="keywords" content="技术探究">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统重点知识整理">
 <meta property="og:url" content="https:&#x2F;&#x2F;mikyming.online&#x2F;2020&#x2F;12&#x2F;26&#x2F;%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86&#x2F;">
 <meta property="og:site_name" content="MikyMing&#39;s Blog">
-<meta property="og:description" content="万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。可能会很乱哈哈哈哈哈哈。">
+<meta property="og:description" content="万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。持续更新……">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2021-01-02T09:49:30.034Z">
+<meta property="og:updated_time" content="2021-01-03T07:26:22.014Z">
 <meta name="twitter:card" content="summary"><meta name="keywords" content="MikyMing, MikyMing's Blog"><meta name="description" content="技术,生活"><title>操作系统重点知识整理 | MikyMing's Blog</title><link ref="canonical" href="https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
@@ -31,49 +31,138 @@ var CONFIG = {
 };
 
 window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="MikyMing's Blog" type="application/atom+xml">
-</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">操作系统重点知识整理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-12-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-02</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。可能会很乱哈哈哈哈哈哈。</p>
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">操作系统重点知识整理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-12-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-03</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">Words</span><span class="post-meta-item__value">8k</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>万恶的期末考试要来了，这里做一个简单的操作系统重点知识整理。核心的部分会放在进程，处理机调度和死锁以及处理器那一块。持续更新……</p>
 <a id="more"></a>
 
+<p>[TOC]</p>
 
         <h2 id="第一章-操作系统引论"   >
           <a href="#第一章-操作系统引论" class="heading-link"><i class="fas fa-link"></i></a>第一章 操作系统引论</h2>
-      
+      <ul>
+<li><input checked="" disabled="" type="checkbox"> 完成</li>
+</ul>
+<ol>
+<li>设计现代OS的主要目标是什么？</li>
+</ol>
+<p>有效性，方便性，可扩充性，开放性</p>
+<ol start="2">
+<li>OS的作用可表现在哪几个方面？</li>
+</ol>
+<p>（1）OS 作为用户与计算机硬件系统之间的接口<br>（2）OS 作为计算机系统资源的管理者<br>（3）OS 实现了对计算机资源的抽象</p>
+<ol start="3">
+<li>为什么说操作系统实现了对计算机资源的抽象？</li>
+</ol>
+<p>OS 首先在裸机上覆盖一层I/O 设备管理软件，实现了对计算机硬件操作的第一层次抽象；在第一层软件上再覆盖文件管理软件，实现了对硬件资源操作的第二层次抽象。OS 通过在计算机硬件上安装多层系统软件，增强了系统功能，隐藏了对硬件操作的细节，由它们共同实现了对计算机资源的抽象。</p>
+<ol start="4">
+<li>何谓脱机I/O和联机I/O？</li>
+</ol>
+<p>脱机I/O 是指事先将装有用户程序和数据的纸带或卡片装入纸带输入机或卡片机，在外围机的控制下，把纸带或卡片上的数据或程序输入到磁带上。该方式下的输入输出由外围机控制完成，是在脱离主机的情况下进行的。而联机I/O 方式是指程序和数据的输入输出都是在主机的直接控制下进行的。</p>
+<ol start="5">
+<li>什么是硬实时任务和软实时任务？举例</li>
+</ol>
+<p>硬实时任务是指系统必须满足任务对截止时间的要求，否则可能出现难以预测的结果。举例来说，运载火箭的控制等。</p>
+<p>软实时任务是指它的截止时间并不严格，偶尔错过了任务的截止时间，对系统产生的影响不大。举例：网页内容的更新、火车售票系统。</p>
+<ol start="6">
+<li>试从交互性、及时性以及可靠性方面将分时系统与实时系统进行比较。</li>
+</ol>
+<p>（1）及时性：实时信息处理系统对实时性的要求与分时系统类似，都是以人所能接受的等待时间来确定；而实时控制系统的及时性，是以控制对象所要求的开始截止时间或完成截止时间来确定的，一般为秒级到毫秒级，甚至有的要低于100 微妙。<br>（2）交互性：实时信息处理系统具有交互性，但人与系统的交互仅限于访问系统中某些特定的专用服务程序。不像分时系统那样能向终端用户提供数据和资源共享等服务。<br>（3）可靠性：分时系统也要求系统可靠，但相比之下，实时系统则要求系统具有高度的可靠性。因为任何差错都可能带来巨大的经济损失，甚至是灾难性后果，所以在实时系统中，往往都采取了多级容错措施保障系统的安全性及数据的安全性。</p>
+<ol start="7">
+<li>OS有哪几大特征？其最基本的特征是什么？</li>
+</ol>
+<p>并发性、共享性、虚拟性和异步性四个基本特征；最基本的特征是并发性。</p>
+<ol start="8">
+<li><strong>什么是时分复用技术？举例说明它能提高资源利用率的根本原因是什么？</strong></li>
+</ol>
+<p>时分复用技术:将资源在不同的时间片内分配给各进程以使该资源被重复利用,从而提高资源的利用率。如采用时分复用技术的虚拟处理机,能够在不同的时间片内处理多个用户的请求, 从而使得用户感觉自己独占主机,而处理机在这期间也被充分的利用</p>
+<ol start="9">
+<li>是什么原因使操作系统具有异步性特征？</li>
+</ol>
+<p>操作系统的异步性体现在三个方面：<br>一是进程的异步性，进程以人们不可预知的速度向前推进，<br>二是程序的不可再现性，即程序执行的结果有时是不确定的，<br>三是程序执行时间的不可预知性，即每个程序何时执行，执行顺序以及完成时间是不确定的。</p>
+<ol start="10">
+<li>处理机管理有哪些主要功能？其主要目的是什么？</li>
+</ol>
+<p>处理机管理的主要功能是：进程管理、进程同步、进程通信和处理机调度；<br>进程管理：为作业创建进程，撤销已结束进程，控制进程在运行过程中的状态转换。<br>进程同步：为多个进程（含线程）的运行进行协调。<br>通信：用来实现在相互合作的进程之间的信息交换。<br>处理机调度：<br>（1 ）作业调度。从后备队里按照一定的算法，选出若干个作业，为他们分配运行所需的资源（首选是分配内存）。<br>（2 ）进程调度：从进程的就绪队列中，按照一定算法选出一个进程，把处理机分配给它，并设置运行现场，使进程投入执行。</p>
+<ol start="11">
+<li>内存管理有哪些主要功能 ? 他们的主要任务是什么？</li>
+</ol>
+<p>内存管理的主要功能有：内存分配、内存保护、地址映射和内存扩充。<br>内存分配：为每道程序分配内存。<br>内存保护：确保每道用户程序都只在自己的内存空间运行，彼此互不干扰。<br>地址映射：将地址空间的逻辑地址转换为内存空间与对应的物理地址。内存扩充：用于实现请求调用功能，置换功能等。</p>
+<ol start="12">
+<li>设备管理有哪些主要功能？其主要任务是什么？</li>
+</ol>
+<p>主要功能有: 缓冲管理、设备分配和设备处理以及虚拟设备等。<br>主要任务:  完成用户提出的I/O 请求，为用户分配I/O 设备；提高CPU 和I/O 设备的利用率；提高I/O 速度；以及方便用户使用I/O 设备.</p>
+<ol start="13">
+<li>文件管理有哪些主要功能？其主要任务是什么？</li>
+</ol>
+<p>文件管理主要功能：文件存储空间的管理、目录管理、文件的读/写管理和保护。文件管理的主要任务：管理用户文件和系统文件，方便用户使用，保证文件安全性。</p>
+
         <h2 id="第二章-进程的描述与控制"   >
           <a href="#第二章-进程的描述与控制" class="heading-link"><i class="fas fa-link"></i></a>第二章 进程的描述与控制</h2>
-      <ol>
+      <ul>
+<li><input checked="" disabled="" type="checkbox"> 完成</li>
+</ul>
+<ol>
 <li>练习题，P91，T2</li>
 <li>为什么程序并发执行会产生间断性特征？</li>
+</ol>
+<p>程序在并发执行时，由于它们共享系统资源，为完成同一项任务需要相互合作，致使这些并发执行的进程之间，形成了相互制约关系，从而使得进程在执行期间出现间断性。</p>
+<ol start="3">
 <li>在操作系统中为什么要引入进程概念？它会产生什么样的影响?</li>
 </ol>
 <p>为了使程序在多道程序环境下能并发执行，并对并发执行的程序加以控制和描述，在操作系统中引入了进程概念</p>
 <ol start="4">
 <li>试从动态性，并发性和独立性上比较进程和程序?</li>
 </ol>
-<p>(1)动态性是进程最基本的特性，表现为由创建而产生，由调度而执行，因得不到资源而暂停执行，由撤销而消亡。进程有一定的生命期，而程序只是一组有序的指令集合，是静态实体。<br>(2)并发性是进程的重要特征，同时也是OS 的重要特征。引入进程的目的正是为了使其程序能和其它进程的程序并发执行，而程序是不能并发执行的。<br>(3)独立性是指进程实体是一个能独立运行的基本单位，也是系统中独立获得资源和独立调度的基本单位。对于未建立任何进程的程序，不能作为独立单位参加运行。</p>
+<p>(1)动态性是进程最基本的特性，表现为由创建而产生，由调度而执行，因得不到资源而暂停执行，由撤销而消亡。<strong>进程有一定的生命期，而程序只是一组有序的指令集合，是静态实体。</strong><br>(2)并发性是进程的重要特征，同时也是OS的重要特征。引入进程的目的正是为了使其程序能和其它进程的程序并发执行，而程序是不能并发执行的。<br>(3)独立性是指进程实体是一个能独立运行的基本单位，也是系统中独立获得资源和独立调度的基本单位。对于未建立任何进程的程序，不能作为独立单位参加运行。</p>
 <ol start="5">
 <li>试说明PCB 的作用，为什么说PCB 是进程存在的惟一标志？</li>
 </ol>
 <p>PCB 是进程实体的一部分，是操作系统中最重要的记录型<strong>数据结构</strong>。作用是使一个在多道程序环境下不能独立运行的程序，成为一个能独立运行的基本单位，成为能与其它进程并发执行的进程。OS是根据PCB对并发执行的进程进行控制和管理的。</p>
 <ol start="6">
-<li>PCB提供了进程管理和进程调度所需要的那些信息？</li>
+<li>PCB提供了进程管理和进程调度所需要的哪些信息？</li>
+</ol>
+<p>进程管理：通用寄存器、指令寄存器、程序状态字、用户栈指针</p>
+<p>进程调度：进程状态、进程优先级、事件、其他信息</p>
+<ol start="6">
 <li>进程控制块的组织方式有哪几种？</li>
+</ol>
+<p>1）线性表方式：不论进程的状态如何，将所有的PCB连续地存放在内存的系统区。这种方式适用于系统中进程数目不多的情况。<br>2）索引表方式：该方式是线性表方式的改进，系统按照进程的状态分别建立就绪索引表、阻塞索引表等。<br>3）链接表方式：系统按照进程的状态将进程的PCB组成队列，从而形成就绪队列、阻塞队列、运行队列等。</p>
+<ol start="7">
 <li>何谓操作系统内核？内核的主要功能是什么？</li>
+</ol>
+<p>操作系统内核是指大多数操作系统的核心部分。它由操作系统中用于管理存储器、文件、外设和系统资源的那些部分组成。操作系统内核通常运行进程,并提供进程间的通信</p>
+<ol start="8">
 <li>试说明进程在三个基本状态之间转换的典型原因。</li>
 </ol>
 <p>（1）就绪状态→执行状态：进程分配到CPU资源<br>（2）执行状态→就绪状态：时间片用完<br>（3）执行状态→阻塞状态：I/O请求<br>（4）阻塞状态→就绪状态：I/O完成</p>
 <ol start="10">
 <li>试从调度性、并发性、拥有资源及系统开销方面对进程和线程进行比较。</li>
+</ol>
+<p>（1）调度性。<br>在传统的操作系统中，拥有资源的基本单位和独立调度、分派的基本单位都是进程，在引入线程的OS中，则把线程作为调度和分派的基本单位，而把进程作为资源拥有的基本单位；<br>（2）并发性。<br>在引入线程的OS中，不仅进程之间可以并发执行，而且在一个进程中的多个线程之间，亦可并发执行，因而使OS具有更好的并发性；<br>（3）拥有资源。<br>无论是传统的操作系统，还是引入了线程的操作系统，进程始终是拥有资源的一个基本单位，而线程除了拥有一点在运行时必不可少的资源外，本身基本不拥有系统资源，但它可以访问其隶属进程的资源；<br>（4）开销。<br>由于创建或撤销进程时，系统都要为之分配和回收资源，如内存空间等，进程切换时所要保存和设置的现场信息也要明显地多于线程，因此，操作系统在创建、撤消和切换进程时所付出的开销将显著地大于线程。</p>
+<ol start="11">
 <li>线程控制块TCB包含了哪些内容？</li>
 </ol>
+<p>线程标识符</p>
+<p>一组寄存器<br>    通用寄存器<br>    程序计数器PC<br>    状态寄存器</p>
+<p>线程运行状态</p>
+<p>优先级</p>
+<p>线程专有存储区</p>
+<p>信号屏蔽</p>
+<p>堆栈指针</p>
 
         <h2 id="第三章-处理机调度和死锁"   >
           <a href="#第三章-处理机调度和死锁" class="heading-link"><i class="fas fa-link"></i></a>第三章 处理机调度和死锁</h2>
-      <ol>
+      <ul>
+<li><input checked="" disabled="" type="checkbox"> 完成</li>
+</ul>
+<ol>
 <li>高级调度与低级调度的主要任务是什么？为什么要引入中级调度？</li>
 </ol>
 <p>高级调度的主要任务是根据某种算法，把外存上处于后备队列中的那些作业调入内存。<br>低级调度是保存处理机的现场信息，按某种算法先取进程，再把处理器分配给进程。<br>引入中级调度的主要目的是为了提高内存利用率和系统吞吐量。<br>使那些暂时不能运行的进程不再占用内存资源，将它们调至外存等待，把进程状态改为就绪驻外存状态或挂起状态。</p>
 <ol start="2">
 <li>处理机调度算法的共同目标是什么？批处理系统的调度目标又是什么？</li>
+</ol>
+<p>共同目标:资源利用率,公平性,平衡性,策略强制执行。 <br>批处理系统的调度目标：平均周转时间短，系统吞吐量高，处理机利用率高。</p>
+<ol start="2">
 <li>在抢占调度方式中，抢占的原则是什么？</li>
 </ol>
 <p>抢占的原则有：时间片原则、优先权原则、短作业优先权原则等。</p>
@@ -95,8 +184,17 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 <p>时间片应略大于一次典型的交互需要的时间。 一般应考虑三个因素： 系统对相应时间的要求、就绪队列中进程的数目和系统的处理能力。</p>
 <ol start="8">
 <li>为什么说传统的几种调度算法都不能算是公平调度算法？</li>
+</ol>
+<p>传统的几种调度算法，都只能满足单条调度需求,对其他则不满足，如FCFS不利于短作业和IO型作业；SJF则不利于长作业和紧迫作业的运行；PSA不利于优先权低的作业;RR不利于紧迫作业。</p>
+<ol start="9">
 <li>保证调度算法是如何做到调度的公平性的？</li>
+</ol>
+<p>保证调度算法是另外一种类型的调度算法，它向用户所做出的保证并不是优先运行，而是明确的性能保证，该算法可以做到调度的公平性。<br>一种比较容易实现的性能保证是处理机分配的公平性。如果在系统中有n个相同类型的进程同时运行，为公平起见，须保证每个进程都获得相同的处理机时间1/n。</p>
+<ol start="10">
 <li>按调度方式可将实时调度算法分为哪几种？</li>
+</ol>
+<p>按调度方式不同，可分为非抢占调度算法和抢占调度算法两种。</p>
+<ol start="11">
 <li>什么是最早截止时间优先调度算法？举例说明。</li>
 </ol>
 <p>根据任务的开始截止时间确定的任务优先级调度算法。 截止时间越早则优先级越高。 该算法要求在系统中保持一个实时任务就绪队列，该队列按各任务截止时间的先后排序。 举例：非抢占式调度方式用于非周期实时任务。</p>
@@ -106,17 +204,41 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 <p>该算法是根据任务紧急 ( 或松弛 )的程度，来确定任务的优先级。任务的紧急程度愈高， 为该任务所赋予的优先级就愈高，以使之优先执行。例如，一个任务在   200 ms 时必须完成，而它本身所需的运行时间就有 100 ms ，因此，调度程序必须在 100 ms 之前调度执行，该任务的紧急程度 (松弛程度 )为 100 ms 。又如，另一任务在 400 ms 时必须完成，它本身需要运行 150 ms ，则其松弛程度为 250 ms 。</p>
 <ol start="13">
 <li>何谓“优先级倒置”现象，可采用什么方法来解决？</li>
+</ol>
+<p>优先级倒置，高优先级进程被低优先级进程延迟或阻塞的现象。 解决方法可以是规定进程在进入临界区后，其所占有的处理机不允许被抢占。</p>
+<ol start="14">
 <li>试举例说明竞争不可抢占资源所引起的死锁</li>
+</ol>
+<p>例如，系统中有两个进程P1和P2，它们都准备写两个文件F1和F2，而这两者都属于可重用和不可抢占性资源。进程P1先打开F1，然后再打开文件F2；进程P2先打开文件F2，后打开F1，下面示出了这段代码。</p>
+<figure class="highlight reasonml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    　　P1</span><br><span class="line"></span><br><span class="line">   　　 P2</span><br><span class="line"></span><br><span class="line">  　　 .........</span><br><span class="line"></span><br><span class="line">   　　<span class="constructor">Open(<span class="params">f1</span>,<span class="params">w</span>)</span>；　　　　 <span class="constructor">Open(<span class="params">f2</span>,<span class="params">w</span>)</span>；</span><br><span class="line"></span><br><span class="line">    　　<span class="constructor">Open(<span class="params">f2</span>,<span class="params">w</span>)</span>；　　　　  <span class="constructor">Open(<span class="params">f1</span>,<span class="params">w</span>)</span>；</span><br></pre></td></tr></table></div></figure>
+
+<p>　　 两个进程P1和P2在并发执行时，如果P1先打开F1和F2，然后P2才去打开F1（或F2），由于文件F1（F2)已被P1打开，故P2会被阻塞。当P1写完文件F1（或F2）而关闭F1（F2)时，P2会由阻塞状态转为就绪状态，被调度执行后重新打开文件F1（或F2)。</p>
+<p>　　在这种情况下，P1和P2都能正常运行下去。若P2先打开F1和F2，然后P1才去打开F1（或F2），P1和P2同样也可以正常运行下去。</p>
+<p>   但如果在Pl打开F1的同时，P2去打开F2，每个进程都占有一个打开的文件，此时就可能出现问题。因为当P1试图去打开F2，而P2试图去打开F1时，</p>
+<p>　　这两个进程都会因文件已被打开而阻塞，它们希望对方关闭自己所需要的文件，但谁也无法运行，因此这两个进程将会无限期地等待下去，而形成死锁。</p>
+<ol start="15">
 <li>为了破坏“请求和保持”条件而提出了两种协议，试比较这两种协议</li>
+</ol>
+<p>第一种协议：所有进程在开始运行之前，必须一次性地申请其在整个运行过程中所需的全部资源。优点就是简单、易行且安全；缺点就是资源被严重浪费、进程经常发生饥饿现象。<br>第二种协议：允许一个进程只获得运行初期所需的资源后，便开始运行。进程运行过程中再逐步释放已分配给自己的、且已用毕的全部资源，然后再请求新的所需资源。</p>
+<ol start="16">
 <li>何谓死锁？产生死锁的原因和必要条件是什么?</li>
+</ol>
+<p>死锁是指多个进程在运行过程中因争夺资源而造成的一种僵局，当进程处于这种僵持状态时，若无外力作用，它们都将无法再向前推进。<br>产生死锁的原因为竞争资源和进程间推进顺序非法。其必要条件是：互斥条件、请求和保持条件、不剥夺条件、环路等待条件。</p>
+<ol start="17">
 <li>请详细说明可通过哪些途径预防死锁。</li>
-<li>练习题，P128</li>
-<li>练习题，P128</li>
+</ol>
+<p>(1)摈弃“请求和保持”条件,就是如果系统有足够资源,便一次性把进程需要的所有资源分配给它; <br>(2)摈弃“不剥夺”条件,就是已经拥有资源的进程,当它提出新资源请求而不能立即满足时,必须释放它已保持的所有资源,待以后需要时再重新申请;<br>(3)摈弃“环路等待”条件,就是将所有资源按类型排序标号,所有进程对资源的请求必须严格按序号递增的次序提出</p>
+<ol start="18">
+<li>练习题，P128，T30</li>
+<li>练习题，P128，T31</li>
 </ol>
 
         <h2 id="第四章-存储器管理"   >
           <a href="#第四章-存储器管理" class="heading-link"><i class="fas fa-link"></i></a>第四章 存储器管理</h2>
-      <ol>
+      <ul>
+<li><input disabled="" type="checkbox"> 未完成</li>
+</ul>
+<ol>
 <li>为什么要配置层次式存储器？</li>
 </ol>
 <p>设置多个存储器可以使存储器两端的硬件能并行工作；采用多级存储系统，特别是 Cache 技术，是减轻存储器带宽对系统性能影响的最佳结构方案；在微处理机内部设置各 种缓冲存储器，减轻对存储器存取的压力。增加CPU中寄存器数量大大缓解对存储器压力。</p>
@@ -157,7 +279,10 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 
         <h2 id="第五章-虚拟存储器"   >
           <a href="#第五章-虚拟存储器" class="heading-link"><i class="fas fa-link"></i></a>第五章 虚拟存储器</h2>
-      <ol>
+      <ul>
+<li><input disabled="" type="checkbox"> 未完成</li>
+</ul>
+<ol>
 <li>常规存储器管理方式具有哪两大特征？它对系统性能有何影响？</li>
 <li>什么是程序运行时的时间局限性和空间局限性？</li>
 <li>实现虚拟存储器需要哪些硬件支持？</li>
@@ -195,16 +320,52 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 
         <h2 id="第六章-输入输出系统"   >
           <a href="#第六章-输入输出系统" class="heading-link"><i class="fas fa-link"></i></a>第六章 输入输出系统</h2>
-      
+      <ul>
+<li><input disabled="" type="checkbox"> 未完成</li>
+</ul>
+
         <h2 id="第七章-文件管理"   >
           <a href="#第七章-文件管理" class="heading-link"><i class="fas fa-link"></i></a>第七章 文件管理</h2>
-      
+      <ul>
+<li><input disabled="" type="checkbox"> 未完成</li>
+</ul>
+
         <h2 id="第八章-磁盘存储器的管理"   >
           <a href="#第八章-磁盘存储器的管理" class="heading-link"><i class="fas fa-link"></i></a>第八章 磁盘存储器的管理</h2>
-      
+      <ul>
+<li><input disabled="" type="checkbox"> 未完成</li>
+</ul>
+
         <h2 id="第九章-操作系统接口"   >
           <a href="#第九章-操作系统接口" class="heading-link"><i class="fas fa-link"></i></a>第九章 操作系统接口</h2>
-      </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2020/12/26/%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">算法入门</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/10/07/%E5%9B%9E%E5%BD%A2%E9%92%88%E4%B8%8E10%E4%B8%AA%E6%89%B9%E8%AF%84%E8%80%85%E8%81%8A%E5%A4%A9/"><span class="paginator-prev__text">回形针与10个批评者聊天</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-操作系统引论"><span class="toc-number">1.</span> <span class="toc-text">
+      <ul>
+<li><input checked="" disabled="" type="checkbox"> 完成</li>
+</ul>
+<ol>
+<li>操作系统用户接口中包括哪几种接口？他们分别适用于哪种情况</li>
+</ol>
+<p>操作系统包括四种类型的用户接口：命令接口（分为联机与脱机命令接口）、程序接口、图形化用户接口和网络用户接口。<br>命令接口和图形化用户接口支持用户直接通过终端来使用计算机系统，程序接口提供给用户在编制程序时使用，网络用户接口是面向网络应用的接口。</p>
+<ol>
+<li>联机命令通常包含哪些类型？每种类型又包含哪些主要命令？</li>
+</ol>
+<p>联机命令通常包含如下类型：<br>（1 ）系统访问类，主要是注册命令login 、password ；（2 ）磁盘操作类，包括磁盘格式化format 、软盘复制diskcopy 、软盘比较diskcomp 及备份backup 等命令；（3 ）文件操作类，包括文件显示type 、文件拷贝copy 、文件比较comp 、文件重命名rename 、文件删除erase 等命令<br>（4 ）目录操作类，包括子目录建立mkdir 、目录显示dir 、子目录删除rmdir 、目录结构显示tree 、当前目录改变chdir 等命令；（5 ）其它命令，包括输入输出重定向&gt;、&lt;, 管道联接|、过滤命令/,批命令.bat 等。</p>
+<ol start="3">
+<li>什么是输入输出重定向？试举例说明。</li>
+</ol>
+<p>命令的输入通常取自标准输入设备键盘，命令输出则送往标准输出设备显示终端。如果在命令中设置输出定向“&gt;，”其后接文件或设备名，则命令的结果输出将送到指定文件或设备上；如果使用输入重定向“&lt;，”则不从键盘而是从重定向符右边的指定文件或设备上取得输入信息。这就是输入输出的重定向。</p>
+<ol start="4">
+<li>何谓管道联接？试举例说明。</li>
+</ol>
+<p>管道联接是指把第一个命令的输出作为第二个命令的输入，或把第二个命令的输出作为第三条命令的输入，以此类推，由两条以上的命令可形成一条管道。在MS-DOS 和UNIX 中，都用”|” 作为管道符号。其一般格式为：command1 |command2 | |commandn 。</p>
+<ol start="5">
+<li>联机命令接口由哪些部分构成？</li>
+</ol>
+<p>联机命令接口由一组联机命令、终端处理程序和命令解释程序构成。</p>
+<ol start="6">
+<li>终端设备处理程序的主要作用是什么？它具有哪些功能？</li>
+</ol>
+<p>主要用于实现人机交互，它具有以下功能：<br>（1）接收用户从终端上键入的字符；<br>（2）字符缓冲，用于暂存接收的字符；<br>（3）回送显示；<br>（4）屏幕编辑；<br>（5）特殊字符处理。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">https://mikyming.online/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/10/07/%E5%9B%9E%E5%BD%A2%E9%92%88%E4%B8%8E10%E4%B8%AA%E6%89%B9%E8%AF%84%E8%80%85%E8%81%8A%E5%A4%A9/"><span class="paginator-prev__text">回形针与10个批评者聊天</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-操作系统引论"><span class="toc-number">1.</span> <span class="toc-text">
           第一章 操作系统引论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-进程的描述与控制"><span class="toc-number">2.</span> <span class="toc-text">
           第二章 进程的描述与控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章-处理机调度和死锁"><span class="toc-number">3.</span> <span class="toc-text">
           第三章 处理机调度和死锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-存储器管理"><span class="toc-number">4.</span> <span class="toc-text">
@@ -213,7 +374,7 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
           第六章 输入输出系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七章-文件管理"><span class="toc-number">7.</span> <span class="toc-text">
           第七章 文件管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-磁盘存储器的管理"><span class="toc-number">8.</span> <span class="toc-text">
           第八章 磁盘存储器的管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第九章-操作系统接口"><span class="toc-number">9.</span> <span class="toc-text">
-          第九章 操作系统接口</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">write code and love life</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/5522mike/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="mailto:wuyyming@gmail.com" target="_blank" rel="noopener" data-popover="social.email" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fas fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">20</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MikyMing</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.0.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Unique Visitor"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Page View"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+          第九章 操作系统接口</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">write code and love life</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/5522mike/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="mailto:wuyyming@gmail.com" target="_blank" rel="noopener" data-popover="social.email" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fas fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">19</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MikyMing</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.0.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Unique Visitor"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Page View"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
@@ -454,7 +615,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   Stun.utils.pjaxReloadLocalSearch();
 }, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script><script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1609581003245')
+  navigator.serviceWorker.register('/sw.js?t=1609658847605')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }
