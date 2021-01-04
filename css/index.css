@@ -722,7 +722,7 @@ kbd {
   width: 100%;
   font-size: 18px;
   background-color: #2d2e30;
-  height: 80vh;
+  height: 100vh;
 }
 .header-inner--bgcolor {
   background-color: #333;
@@ -1988,6 +1988,9 @@ kbd {
 }
 .post-meta-item--updatetime {
   color: #49b1f5;
+}
+.post-meta-item--wordcount {
+  color: var(--color-gray-700);
 }
 .post-meta-item--visitors {
   color: #fc6423;
