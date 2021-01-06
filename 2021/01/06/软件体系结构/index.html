@@ -1,0 +1,490 @@
+<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="关键点串联">
+<meta name="keywords" content="技术探究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件体系结构">
+<meta property="og:url" content="https:&#x2F;&#x2F;mikyming.online&#x2F;2021&#x2F;01&#x2F;06&#x2F;%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84&#x2F;">
+<meta property="og:site_name" content="MikyMing&#39;s Blog">
+<meta property="og:description" content="关键点串联">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-01-06T08:35:15.581Z">
+<meta name="twitter:card" content="summary"><meta name="keywords" content="MikyMing, MikyMing's Blog"><meta name="description" content="技术,生活"><title>软件体系结构 | MikyMing's Blog</title><link ref="canonical" href="https://mikyming.online/2021/01/06/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="MikyMing's Blog" type="application/atom+xml">
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">软件体系结构</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-06</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">Words</span><span class="post-meta-item__value">1.7k</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>关键点串联</p>
+<a id="more"></a>
+
+
+        <h2 id="第一章-软件体系结构概论"   >
+          <a href="#第一章-软件体系结构概论" class="heading-link"><i class="fas fa-link"></i></a>第一章 软件体系结构概论</h2>
+      <ol>
+<li>软件危机<ol>
+<li>概念：是指在计算机软件的开发和维护过程中所遇到的一系列严重问题</li>
+<li>表现：<ol>
+<li>软件成本日益增长</li>
+<li>开发进度难以控制</li>
+<li>软件质量差</li>
+<li>软件维护困难</li>
+</ol>
+</li>
+<li>原因：<ol>
+<li>用户需求不明确</li>
+<li>缺乏正确的理论指导</li>
+<li>软件的规模越来越大</li>
+<li>软件复杂度越来越高</li>
+</ol>
+</li>
+<li>软件工程三要素：方法、工具和过程</li>
+</ol>
+</li>
+<li>构件与软件重用<ol>
+<li>概念：软件重用是指在两次或多次不同的软件开发过程中重复使用相同或相近软件元素的过程</li>
+<li>软件元素：程序代码、测试用例、设计文档、设计过程、需求分析文档甚至领域知识</li>
+<li>构建模型三个主要流派：OMG,CORBA,DCOM</li>
+<li>构建获取：<ol>
+<li>从现有构建中获得</li>
+<li>遗留工程</li>
+<li>从市场上购买</li>
+<li>开发新的</li>
+</ol>
+</li>
+<li>构建分类：关键字分类法，刻面分类法，超文本组织法。</li>
+<li>构件库五类用户：注册用户，公共用户，构建提交者，一般系统管理员，超级系统管理员</li>
+<li>构建组装：基于功能、数据、面向对象的组装技术</li>
+<li>系统构建模型四层次：系统构件层，通用类构件层，业务构件层，表现层</li>
+<li>组织结构的重用：构件开发组，构件应用组，协调组</li>
+</ol>
+</li>
+<li>软件体系结构的兴起和发展<ol>
+<li>软件体系结构为软件系统提供了一个结构、行为和属性的高级抽象，由构成系统的元素的描述，这些元素的相互作用，指导元素集成的模型记忆这些模式的约束组成。</li>
+<li>软件体系结构不仅指定了系统的组织结构和拓扑结构，并且显示了系统需求的构成系统的元素之间的对应关系，提供了一些设计决策的基本原理</li>
+<li>软件体系结构技术的四个阶段：<ol>
+<li>无体系结构设计阶段</li>
+<li>萌芽阶段</li>
+<li>初期阶段</li>
+<li>高级阶段</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="第二章-软件体系结构建模-！！"   >
+          <a href="#第二章-软件体系结构建模-！！" class="heading-link"><i class="fas fa-link"></i></a>第二章 软件体系结构建模 ！！</h2>
+      <p><strong>五种软件体系结构模型：结构模型，框架模型，动态模型，过程模型和功能模型</strong></p>
+<ol>
+<li>“4+1”视图模型 ！！<ol>
+<li>逻辑视图：最终用户：功能需求</li>
+<li>开发视图：编程人员：软件管理</li>
+<li>进程视图：系统集成人员：性能可扩展性，吞吐量</li>
+<li>物理视图：系统工程人员：系统拓扑、安装、通信</li>
+<li>场景视图：场景可以看做那些重要系统活动的抽象，它使4个视图有机联系起来，从某种意义上说场景是最重要的需求抽象。</li>
+</ol>
+</li>
+<li>软件体系结构的核心模型<ol>
+<li>组成元素：构件、连接件、配置、端口和角色</li>
+</ol>
+</li>
+<li>软件体系结构的生命周期模型<ol>
+<li>建立软件体系结构阶段</li>
+<li>软件体系结构的生命周期</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="第三章-软件体系结构风格-！！"   >
+          <a href="#第三章-软件体系结构风格-！！" class="heading-link"><i class="fas fa-link"></i></a>第三章 软件体系结构风格 ！！</h2>
+      <p><strong>软件体系结构风格是描述某一特定应用领域中系统组织方式的惯用模式</strong></p>
+<p><strong>体系结构风格反映了领域中总舵系统所共有的结构和语义特性，并指导如何将各个模块和子系统有效地组织成一个完整的系统。</strong></p>
+<ol>
+<li>经典软件体系结构风格<ol>
+<li>数据流风格</li>
+<li>调用/返回风格</li>
+<li>独立构件风格</li>
+<li>虚拟机风格</li>
+<li>仓库风格</li>
+<li>仓库系统及知识库</li>
+</ol>
+</li>
+<li>客户/服务器风格<ol>
+<li>服务器的主要任务</li>
+<li>客户端的主要任务</li>
+<li>服务器负责数据管理，客户机完成与用户的交互任务</li>
+<li>缺点和优点</li>
+</ol>
+</li>
+<li>三层C/S风格<ol>
+<li>应该功能分为三个层：表示层，功能层和数据层</li>
+<li>优点</li>
+</ol>
+</li>
+<li>浏览/服务器风格<ol>
+<li>B/S风格是将三层应用结构的一种实现方式</li>
+<li>与C/S相比B/S的不足</li>
+</ol>
+</li>
+<li>异构结构风格<ol>
+<li>“内外有别”模型</li>
+<li>“查改有别”模型</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="第四章-软件体系结构描述"   >
+          <a href="#第四章-软件体系结构描述" class="heading-link"><i class="fas fa-link"></i></a>第四章 软件体系结构描述</h2>
+      <ol>
+<li>软件体系结构描述方法<ol>
+<li>文字表达工具</li>
+<li>数学表达工具</li>
+<li>图形表达工具</li>
+</ol>
+</li>
+<li>体系结构描述语言<ol>
+<li>ADL（Architecture Description Language）是这样一种形式化语言，它在底层语义模型的支持下，为软件系统的概念体系结构建模提供了具体的语法和概念框架</li>
+<li>ADL基本元素：构件，连接件，体系结构配置</li>
+<li>ADL能力：构造能力，抽象能力，重用能力，组合能力，异构能力，分析和推理能力</li>
+<li>构成要素：构件，连接件，体系结构配置</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="第六章-可扩展标记语言"   >
+          <a href="#第六章-可扩展标记语言" class="heading-link"><i class="fas fa-link"></i></a>第六章 可扩展标记语言</h2>
+      <ol>
+<li>XML概述<ol>
+<li>定义：XML是一套定义语义标记的规则，这些标记将文档分成许多部件并对不见加以标识</li>
+<li>特点：简洁有效，易学易用，开放的国际化标准，高些且可扩充</li>
+</ol>
+</li>
+<li>解析XML<ol>
+<li>和HTML的区别：XML是元标记语言可以用于定义其他标记语言。XML是“纯”数据。</li>
+<li>XSL是专门用于XML文档的样式单语言</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="第八章-基于服务的体系结构-！！"   >
+          <a href="#第八章-基于服务的体系结构-！！" class="heading-link"><i class="fas fa-link"></i></a>第八章 基于服务的体系结构 ！！</h2>
+      <ol>
+<li>SOA概述<ol>
+<li>SOA(Service-Oriented Architecture)面向服务的体系结构</li>
+<li>SOA是一种在计算环境中设计、开发、部署和管理离散逻辑单元（服务）模型的方法</li>
+<li>特征：松散耦合，粗颗粒度服务，标准化接口</li>
+</ol>
+</li>
+<li>面向服务的分析与设计<ol>
+<li>三个抽象级别：操作，服务和业务流程</li>
+</ol>
+</li>
+<li>SOA关键技术 ！！<ol>
+<li>发现服务层</li>
+<li>描述服务层</li>
+<li>消息格式层</li>
+<li>编码格式层</li>
+<li>传输协议层</li>
+</ol>
+</li>
+<li>SOA的实现方法<ol>
+<li>SOA是用本地计算模型来实现一个分布式的计算应用</li>
+<li>Web Service模型中的操作包括发布，查找和绑定，这些操作可以单次或者反复出现。</li>
+</ol>
+</li>
+<li>服务描述语言<ol>
+<li>WSDL(Web Services Description L<em>anguage</em>)是对服务进行描述的语言，它有一套基于XML的语法定义</li>
+<li>WSDL子元素：types,message,operation,portType,binding,port,service</li>
+</ol>
+</li>
+<li>统一描述、发现和集成协议<ol>
+<li>UDDI(Universal Description Discovery  and Integration*)是一种用户描述，发现，集成Web服务的技术，他是Web服务协议栈的一个重要部分。</li>
+<li>数据结构：businessEntity,businessService,bindingTemplate,tModel</li>
+</ol>
+</li>
+<li>消息封装协议<ol>
+<li>SOAP（Simple Object Access Protocol）以XML形式提供一个简单，轻量的用于在分散或分布环境中交换结构化和类型信息的机制</li>
+<li>主要包括4个部分：SOAP封装结构，SOAP编码规则，SOAP RPC表示，SOAP绑定</li>
+</ol>
+</li>
+</ol>
+
+        <h2 id="第九章-富互联网体系结构"   >
+          <a href="#第九章-富互联网体系结构" class="heading-link"><i class="fas fa-link"></i></a>第九章 富互联网体系结构</h2>
+      <ol>
+<li>RIA的概念<ol>
+<li>RIA（Rich Internet Application）富互联网应用体系结构</li>
+<li>富：丰富的数据模型和丰富的用户界面</li>
+</ol>
+</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mikyming.online/2021/01/06/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">https://mikyming.online/2021/01/06/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"><span class="paginator-prev__text">数字图像处理</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-软件体系结构概论"><span class="toc-number">1.</span> <span class="toc-text">
+          第一章 软件体系结构概论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-软件体系结构建模-！！"><span class="toc-number">2.</span> <span class="toc-text">
+          第二章 软件体系结构建模 ！！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章-软件体系结构风格-！！"><span class="toc-number">3.</span> <span class="toc-text">
+          第三章 软件体系结构风格 ！！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章-软件体系结构描述"><span class="toc-number">4.</span> <span class="toc-text">
+          第四章 软件体系结构描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章-可扩展标记语言"><span class="toc-number">5.</span> <span class="toc-text">
+          第六章 可扩展标记语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第八章-基于服务的体系结构-！！"><span class="toc-number">6.</span> <span class="toc-text">
+          第八章 基于服务的体系结构 ！！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第九章-富互联网体系结构"><span class="toc-number">7.</span> <span class="toc-text">
+          第九章 富互联网体系结构</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">write code and love life</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/5522mike/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="mailto:wuyyming@gmail.com" target="_blank" rel="noopener" data-popover="social.email" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fas fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">21</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MikyMing</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.0.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Unique Visitor"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Page View"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script><script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1609922122862')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body></html>

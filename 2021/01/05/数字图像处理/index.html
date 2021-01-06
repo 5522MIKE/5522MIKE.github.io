@@ -1,0 +1,396 @@
+<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="关键点串联">
+<meta name="keywords" content="技术探究">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像处理">
+<meta property="og:url" content="https:&#x2F;&#x2F;mikyming.online&#x2F;2021&#x2F;01&#x2F;05&#x2F;%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86&#x2F;">
+<meta property="og:site_name" content="MikyMing&#39;s Blog">
+<meta property="og:description" content="关键点串联">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-01-06T05:20:29.963Z">
+<meta name="twitter:card" content="summary"><meta name="keywords" content="MikyMing, MikyMing's Blog"><meta name="description" content="技术,生活"><title>数字图像处理 | MikyMing's Blog</title><link ref="canonical" href="https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"ocean","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: {"switchPost":true},
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="MikyMing's Blog" type="application/atom+xml">
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">数字图像处理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-06</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">Words</span><span class="post-meta-item__value">728</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>关键点串联</p>
+<a id="more"></a>
+
+
+        <h2 id="第1章-绪论"   >
+          <a href="#第1章-绪论" class="heading-link"><i class="fas fa-link"></i></a>第1章 绪论</h2>
+      <p>习题1</p>
+
+        <h2 id="第2章-数字图像处理基础"   >
+          <a href="#第2章-数字图像处理基础" class="heading-link"><i class="fas fa-link"></i></a>第2章 数字图像处理基础</h2>
+      <p>2.4 空间分辨率和灰度级分辨率 （分辨率大小的影响</p>
+<p>2.5.1 像素的相邻和邻域</p>
+
+        <h2 id="第3章-数字图像的基本运算"   >
+          <a href="#第3章-数字图像的基本运算" class="heading-link"><i class="fas fa-link"></i></a>第3章 数字图像的基本运算</h2>
+      <p>3.1 灰度反转</p>
+<p>3.2 对数变换</p>
+<p>3.3 灰度直方图</p>
+<p>3.5 图像的集合运算</p>
+
+        <h2 id="第4章-空间域图像增强-！！"   >
+          <a href="#第4章-空间域图像增强-！！" class="heading-link"><i class="fas fa-link"></i></a>第4章 空间域图像增强 ！！</h2>
+      <p>4.2.1 直方图均衡</p>
+<p>4.2.2 直方图规定化</p>
+<p>4.3 基于空间平滑滤波的图像增强方法</p>
+<p>邻域平均法——椒盐噪声——线性</p>
+<p>中值滤波法——高斯噪声——非线性</p>
+<p>4.4 基于空间锐化滤波的图像增强方法</p>
+
+        <h2 id="第5章-频率域图像处理-！！"   >
+          <a href="#第5章-频率域图像处理-！！" class="heading-link"><i class="fas fa-link"></i></a>第5章 频率域图像处理 ！！</h2>
+      <p>空间域，频率域定义</p>
+<p>5.2 频率域图像处理的基本实现思路</p>
+<p>5.3 基于频率域的图像噪声消除——频率域低通滤波</p>
+<p>理想低通滤波器</p>
+<p>巴特沃斯低通滤波器</p>
+<p>高斯低通滤波器</p>
+<p>5.4 基于频率域的图像增强——频率域高通滤波</p>
+<p>理想高通滤波器</p>
+<p>巴斯沃特高通滤波器</p>
+<p>高斯高通滤波器</p>
+<p>5.5 带阻滤波和带通滤波</p>
+
+        <h2 id="第6章-图像恢复-！！"   >
+          <a href="#第6章-图像恢复-！！" class="heading-link"><i class="fas fa-link"></i></a>第6章 图像恢复 ！！</h2>
+      <p>6.1.3 一维离散退化模型</p>
+<p>6.5 图像噪声与被噪声污染图像的恢复</p>
+<p>6.6 几何失真的校正</p>
+<p>坐标变换-灰度插值</p>
+
+        <h2 id="第7章-图像压缩编码"   >
+          <a href="#第7章-图像压缩编码" class="heading-link"><i class="fas fa-link"></i></a>第7章 图像压缩编码</h2>
+      <p>7.1 DCT变换（离散余弦变换）</p>
+
+        <h2 id="第8章-小波图像处理"   >
+          <a href="#第8章-小波图像处理" class="heading-link"><i class="fas fa-link"></i></a>第8章 小波图像处理</h2>
+      <p>8.1.1 小波的概念和特性</p>
+<p>8.1.6 图像的小波变换</p>
+<p>8.3 基于小波变换的图像去噪方法</p>
+
+        <h2 id="第9章-图像分割"   >
+          <a href="#第9章-图像分割" class="heading-link"><i class="fas fa-link"></i></a>第9章 图像分割</h2>
+      <p>9.2.2 Hough变换</p>
+<p>9.3.1 基于阈值的分割方法</p>
+<p>9.4基于跟踪的图像分割</p>
+<p>9.5 基于区域的图像分割</p>
+
+        <h2 id="第10章-图像特征提取"   >
+          <a href="#第10章-图像特征提取" class="heading-link"><i class="fas fa-link"></i></a>第10章 图像特征提取</h2>
+      <p>10.1 图像的边缘特征及其检测方法</p>
+<p>10.2 图像的电与角点特征及其检测方法</p>
+
+        <h2 id="第11章-彩色图像处理"   >
+          <a href="#第11章-彩色图像处理" class="heading-link"><i class="fas fa-link"></i></a>第11章 彩色图像处理</h2>
+      <p>11.1.1 三基色原理</p>
+<p>11.2.1 RGB彩色模型</p>
+<p>11.2.2 HSI彩色模型</p>
+<p>11.3.1 反色变换</p>
+<p>11.3.2 彩色图像的灰度化</p>
+<p>11.3.3 真彩色转变为256色</p>
+<p>11.3.4 彩色平衡</p>
+<p>11.4 彩色图像增强</p>
+<p>11.6 彩色图像的锐化</p>
+<p>11.7 彩色图像的边缘检测</p>
+<p>11.8 彩色图像的分割</p>
+
+        <h2 id="第12-形态学图像处理"   >
+          <a href="#第12-形态学图像处理" class="heading-link"><i class="fas fa-link"></i></a>第12 形态学图像处理</h2>
+      <p>12.2.1 腐蚀</p>
+<p>12.2.2 膨胀</p>
+<p>12.2.3 开运算和闭运算</p>
+<p>12.3 二值图像的形态学处理</p>
+
+        <h2 id="第13章-目标表示与描述"   >
+          <a href="#第13章-目标表示与描述" class="heading-link"><i class="fas fa-link"></i></a>第13章 目标表示与描述</h2>
+      <p>13.1 边界表示</p>
+<p>13.2.3 傅里叶描述子</p>
+
+        <h2 id="第14章-视频图像处理基础"   >
+          <a href="#第14章-视频图像处理基础" class="heading-link"><i class="fas fa-link"></i></a>第14章 视频图像处理基础</h2>
+      <p>14.1 视频图像处理概念</p>
+<p>14.2 基于视频图像的运动目标检测与识别</p>
+<p>​    </p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/01/06/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">软件体系结构</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"><span class="paginator-prev__text">操作系统重点知识整理</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-绪论"><span class="toc-number">1.</span> <span class="toc-text">
+          第1章 绪论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-数字图像处理基础"><span class="toc-number">2.</span> <span class="toc-text">
+          第2章 数字图像处理基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-数字图像的基本运算"><span class="toc-number">3.</span> <span class="toc-text">
+          第3章 数字图像的基本运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第4章-空间域图像增强-！！"><span class="toc-number">4.</span> <span class="toc-text">
+          第4章 空间域图像增强 ！！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第5章-频率域图像处理-！！"><span class="toc-number">5.</span> <span class="toc-text">
+          第5章 频率域图像处理 ！！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第6章-图像恢复-！！"><span class="toc-number">6.</span> <span class="toc-text">
+          第6章 图像恢复 ！！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第7章-图像压缩编码"><span class="toc-number">7.</span> <span class="toc-text">
+          第7章 图像压缩编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第8章-小波图像处理"><span class="toc-number">8.</span> <span class="toc-text">
+          第8章 小波图像处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第9章-图像分割"><span class="toc-number">9.</span> <span class="toc-text">
+          第9章 图像分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第10章-图像特征提取"><span class="toc-number">10.</span> <span class="toc-text">
+          第10章 图像特征提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第11章-彩色图像处理"><span class="toc-number">11.</span> <span class="toc-text">
+          第11章 彩色图像处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第12-形态学图像处理"><span class="toc-number">12.</span> <span class="toc-text">
+          第12 形态学图像处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第13章-目标表示与描述"><span class="toc-number">13.</span> <span class="toc-text">
+          第13章 目标表示与描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第14章-视频图像处理基础"><span class="toc-number">14.</span> <span class="toc-text">
+          第14章 视频图像处理基础</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/touxiang.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">write code and love life</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/5522mike/" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a><a class="sidebar-ov-social-item" href="mailto:wuyyming@gmail.com" target="_blank" rel="noopener" data-popover="social.email" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fas fa-envelope"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">21</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">6</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MikyMing</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v4.0.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.0.0-rc.0</span></div><div class="busuanzi"><span class="busuanzi-siteuv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Unique Visitor"><i class="fas fa-user"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_uv"></span></span><span class="busuanzi-sitepv"><span class="busuanzi-siteuv__icon" data-popover-pos="up" data-popover="Page View"><i class="fas fa-eye"></i></span><span class="busuanzi-siteuv__value" id="busuanzi_value_site_pv"></span></span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script><script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1609922122862')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body></html>
