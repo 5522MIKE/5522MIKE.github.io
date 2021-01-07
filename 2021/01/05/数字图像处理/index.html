@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="关键点串联">
+<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="关键点串联 co-author: @ppy">
 <meta name="keywords" content="技术探究">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字图像处理">
 <meta property="og:url" content="https:&#x2F;&#x2F;mikyming.online&#x2F;2021&#x2F;01&#x2F;05&#x2F;%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86&#x2F;">
 <meta property="og:site_name" content="MikyMing&#39;s Blog">
-<meta property="og:description" content="关键点串联">
+<meta property="og:description" content="关键点串联 co-author: @ppy">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2021-01-06T05:20:29.963Z">
+<meta property="og:updated_time" content="2021-01-07T15:22:08.907Z">
 <meta name="twitter:card" content="summary"><meta name="keywords" content="MikyMing, MikyMing's Blog"><meta name="description" content="技术,生活"><title>数字图像处理 | MikyMing's Blog</title><link ref="canonical" href="https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
@@ -31,72 +31,300 @@ var CONFIG = {
 };
 
 window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="MikyMing's Blog" type="application/atom+xml">
-</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">数字图像处理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-06</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">Words</span><span class="post-meta-item__value">728</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>关键点串联</p>
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">数字图像处理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-07</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">Words</span><span class="post-meta-item__value">4.9k</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>关键点串联 co-author: @ppy</p>
 <a id="more"></a>
 
 
         <h2 id="第1章-绪论"   >
           <a href="#第1章-绪论" class="heading-link"><i class="fas fa-link"></i></a>第1章 绪论</h2>
       <p>习题1</p>
+<ol>
+<li>解释术语<ol>
+<li>图像 <strong>用各种观测系统以不同形式和手段观测客观世界而获得的、可以直接或间接作用于人的视觉系统而产生的视知觉实体</strong></li>
+<li>数字图像 <strong>二维空间和亮度值都是用有限数字数值表示的图像</strong></li>
+<li>图像处理 <strong>指对图像信息进行加工，以满足人的视觉或应用需求的行为</strong></li>
+<li>数字图像处理 <strong>指利用计算机技术对数值图像进行某些数学运算和各种加工处理，以改善图像的视觉效果和提高图像实用性的技术</strong></li>
+<li>图像分析 <strong>通过对图像中不同对象进行分割来对图像中目标进行分类和识别的技术</strong></li>
+<li>图像感知与获取 <strong>将景物转换成计算机可以接受的数字图像的过程</strong></li>
+</ol>
+</li>
+<li>图像处理的基本特征 <strong>图像处理系统的输入输出都是图像</strong></li>
+<li>图像分析的基本特征 <strong>图像分析系统的输入是图像，输出是对输入图像进行描述的数据信息</strong></li>
+<li>图像分析的目的 <strong>缩减对图像的描述，以使其更适合于计算机处理及对不同目标的分类</strong></li>
+<li>图像处理低级阶段与高级阶段的关系 <strong>低级处理是高一级处理的基础</strong></li>
+<li>数字图像处理系统由哪几部分组成？各部分的功用是什么？ <ol>
+<li>数字图像源：<strong>提供计算机可以接收的数字图像</strong></li>
+<li>计算机系统：<strong>进行对数字图像的处理</strong></li>
+<li>图像输出设备：<strong>输出图像处理结果</strong></li>
+</ol>
+</li>
+<li>数字图像处理技术研究的基本内容包括哪些 <ol>
+<li><strong>最基本的图像处理方法：主要有图像增强、图像恢复、图像压缩编码、图像分割、图像特征提取、图像的标识与描述、图像变换和图像的基本运算</strong></li>
+<li><strong>基于某一特定数学理论的图像处理方法：频率与图像处理方法、小波图像处理方法和形态学图像处理方法</strong></li>
+</ol>
+</li>
+<li>请解释研究图像增强的基本思路 <strong>简单地突出图像中感兴趣的特征，或想办法显现图像中那些模糊的细节，以使图像更清晰地被显示或更适合人或机器的处理与分析</strong></li>
+<li>图像恢复的基本思路 <strong>从退化图像的数学或概率模型出发，研究改进图像的外观，从而使恢复以后的图像尽可能反映原始图像的本来面目</strong></li>
+<li>图像压缩编码的基本思路 <strong>在不损失图像质量或少损失图像质量的前提下，通过对图像的重新编码，尽可能地减少表示该图像的字节数量，以满足图像存储和实时传输的应用需求</strong></li>
+<li>图像分割的基本目的 <strong>根据图像的某种特征或某种相似性测度，把一幅图像分成若干个互不交迭且具有相同或相近特征的区域</strong></li>
+<li>图像的表述和描述的目的 <strong>通过对图像分割等方法得到的图像中感兴趣的区域或目标，寻找出更适合于计算机进一步处理的表示和描述方法</strong></li>
+<li>简述数字图像处理有哪些应用 <strong>媒体通信、宇宙探索、遥感技术、生物医学、工业生产、气象预报、军事技术、侦缉破案、考古、文化产业</strong></li>
+<li>简述一个你所熟悉的图像处理的应用实例 <strong>医学上用B超检测仪对人体器官病变的检查和诊断</strong></li>
+</ol>
 
         <h2 id="第2章-数字图像处理基础"   >
           <a href="#第2章-数字图像处理基础" class="heading-link"><i class="fas fa-link"></i></a>第2章 数字图像处理基础</h2>
       <p>2.4 空间分辨率和灰度级分辨率 （分辨率大小的影响</p>
+<ul>
+<li>空间分辨率是指图像中可分辨的最小细节，由采样间隔值决定。图像空间分辨率越低，图像的视觉效果越差；图像大小不变，图像的分辨率越低，图像阵列$M*N`越小</li>
+<li>灰度级分辨率是指在灰度级别中可分辨的最小变化。灰度级分辨率越低，图像的视觉效果越差。</li>
+</ul>
 <p>2.5.1 像素的相邻和邻域</p>
+<ul>
+<li>相邻像素的集合称为邻域</li>
+</ul>
 
         <h2 id="第3章-数字图像的基本运算"   >
           <a href="#第3章-数字图像的基本运算" class="heading-link"><i class="fas fa-link"></i></a>第3章 数字图像的基本运算</h2>
-      <p>3.1 灰度反转</p>
+      <p>3.1 灰度反转 </p>
+<ul>
+<li>对于原图像$f(x,y)$设图像的灰度级为$L$，则图像的灰度反转可表示为$g(x,y) = L-1-f(x,y)$</li>
+</ul>
 <p>3.2 对数变换</p>
+<ul>
+<li>对于原图像$f(x,y)$进行对数变换的解析式可表示为$g(x,y)=c*log(1+f(x,y))$，其中，$c$是一个常数。</li>
+<li>作用是对原图像的灰度值动态范围进行压缩，主要用于调高输入图像的低灰度值。</li>
+</ul>
 <p>3.3 灰度直方图</p>
-<p>3.5 图像的集合运算</p>
+<ul>
+<li>灰度图像的直方图是一种表示数字图像中各级灰度值及其出现频数的关系的函数，实质上就是柱状图。</li>
+<li>归一化灰度图像直方图：求该灰度值出现的概率</li>
+<li>仅能描述图像中每个灰度值具有的像素个数，不能表示图像中每个像素的位置信息</li>
+</ul>
+<p>3.4 图像的代数运算</p>
+<ul>
+<li><strong>图像相加</strong>是通过对两幅大小相同的图像对应位置像素的相加运算，以产生一副新的含有两幅图像信息的图像的方法。$g(x,y) = f_1(x,y)+f_2(x,y)$<ul>
+<li>两幅图像相加：$g(x,y) = \alpha f_1(x,y)+ \beta f_2(x,y)$</li>
+<li>多幅图像叠加是一种灰度图像的噪声消除方法：$g(x,y) = \frac{1}{N}f_i(x,y)$</li>
+</ul>
+</li>
+<li><strong>图像相减</strong>：$g(x,y) = f_1(x,y)-f_2(x,y)$ （运算结果要对不符合要求的像素值进行相应的处理）</li>
+</ul>
+<p>3.5 图像的几何运算</p>
+<ul>
+<li>平移<ul>
+<li>图像块平移</li>
+<li>整幅图像平移</li>
+</ul>
+</li>
+<li>旋转<ul>
+<li>旋转后图像幅面放大</li>
+<li>旋转后图像幅面不变，将图像截断</li>
+</ul>
+</li>
+<li>镜像<ul>
+<li>水平镜像</li>
+<li>垂直镜像</li>
+</ul>
+</li>
+<li>转置：将图像显示坐标的$x$轴与$y$轴对换</li>
+<li>缩放<ul>
+<li>缩小目的：一是为了使缩小后的图像符合显示区域的大小要求；二是为了生成原图像的缩略图</li>
+<li>放大目的：为了使放大后的图像更好地显示在更高分辨率的显示设备上</li>
+<li></li>
+</ul>
+</li>
+</ul>
 
         <h2 id="第4章-空间域图像增强-！！"   >
           <a href="#第4章-空间域图像增强-！！" class="heading-link"><i class="fas fa-link"></i></a>第4章 空间域图像增强 ！！</h2>
       <p>4.2.1 直方图均衡</p>
+<ul>
+<li>所谓直方图均衡，就是把一幅已知灰度概率分布的图像，变换成具有均匀概率分布的新图像，通过使其像素灰度值范围和对比度增大，来实现对图像增强的技术和方法。</li>
+<li>直方图均衡方法中的直方图是归一化直方图。</li>
+<li>实现步骤<ol>
+<li>计算原图像的归一化灰度级别及其分布概率$p_r(r_k)=n_k/n$</li>
+<li>根据直方图均衡化公式求变换函数的各灰度等级值$s_k$</li>
+<li>将所得的变换函数的各灰度等级值转化标准的灰度级别值</li>
+<li>求新图像的各灰度级别值的像素数目</li>
+<li>求新图像中个灰度级别的分布概率$p_s(s_k)=m_k/n$</li>
+<li>画出均衡化后的新图像的直方图</li>
+</ol>
+</li>
+</ul>
 <p>4.2.2 直方图规定化</p>
+<ul>
+<li>把已知直方图的图像变换成具有某种期望的直方图的图像增强方法</li>
+</ul>
 <p>4.3 基于空间平滑滤波的图像增强方法</p>
-<p>邻域平均法——椒盐噪声——线性</p>
-<p>中值滤波法——高斯噪声——非线性</p>
+<ul>
+<li><p>模板运算</p>
+</li>
+<li><p>邻域平均法——椒盐噪声/脉冲噪声——线性平滑滤波图像增强方法$g(x,y)=\Biggr{\frac{1}{8}\displaystyle \sum^{8}<em>{i=1}{O_i},当|f(x,y)-\frac{1}{8}\displaystyle \sum^{8}</em>{i=1}{O_i}|&gt;\epsilon \choose f(x,y),其他$</p>
+</li>
+<li><p>中值滤波法——高斯噪声——非线性平滑滤波图像增强方法——基本原理是基于某种中值滤波窗口，对该窗口覆盖的所有像素的灰度值进行排序</p>
+<ol>
+<li>根据选定窗口的形状，确定窗口中心位置像素在原图像上的重合方式</li>
+<li>将窗口在图像上逐像素移动扫描</li>
+<li>把窗口下对应的像素按它们的灰度值大小进行排序，并找出排序结果的中间的那个值</li>
+</ol>
+<ul>
+<li>中值滤波主要优点：运算简单，在滤除噪声的同时能很好地保护信号的细节信息。很容易自适应化，从而进一步提高其滤波特性</li>
+<li>中值滤波的关键在于选择合适的窗口形状和窗口大小；另一个重要因素是排序算法的速度</li>
+</ul>
+</li>
+</ul>
 <p>4.4 基于空间锐化滤波的图像增强方法</p>
+<ul>
+<li>基于一阶微分的图像增强法<ol>
+<li>利用梯度法检测和突出图像中的边缘</li>
+<li>基于某一门限阙值，通过利用超过门限的梯度值或某一指定的灰度值代替图像中相应的边缘来形成增强的结果图像</li>
+</ol>
+</li>
+<li>基于二阶微分的图像增强法————拉普拉斯算子锐化方法</li>
+</ul>
 
         <h2 id="第5章-频率域图像处理-！！"   >
           <a href="#第5章-频率域图像处理-！！" class="heading-link"><i class="fas fa-link"></i></a>第5章 频率域图像处理 ！！</h2>
-      <p>空间域，频率域定义</p>
+      <ul>
+<li>频率域图像处理是通过傅里叶变换把图像从空间域变换到频率域，然后用频率域方法对图像进行处理，处理完后再利用傅里叶反变换把图像变换回空间域</li>
+</ul>
 <p>5.2 频率域图像处理的基本实现思路</p>
-<p>5.3 基于频率域的图像噪声消除——频率域低通滤波</p>
-<p>理想低通滤波器</p>
-<p>巴特沃斯低通滤波器</p>
-<p>高斯低通滤波器</p>
-<p>5.4 基于频率域的图像增强——频率域高通滤波</p>
-<p>理想高通滤波器</p>
-<p>巴斯沃特高通滤波器</p>
-<p>高斯高通滤波器</p>
-<p>5.5 带阻滤波和带通滤波</p>
+<p>$G(u,v) = F(u,v)H(u,v)\<br>g(x,y) = F^{-1}[G(u,v)]$</p>
+<ol>
+<li>用$(-1)^{(x+y)}$乘以输入图像进行中心变换</li>
+<li>对步骤1的计算结果图像进行二维傅里叶变换，求F(u,v)</li>
+<li>用设计的转移函数H(u,v)乘以F(u,v)，即求G(u,v)</li>
+<li>求步骤3的计算结果的傅里叶反变换，即计算$F^{-1}[G(u,v)]$</li>
+<li>取步骤4的实部</li>
+<li>用$(-1)^{(x+y)}$乘以步骤5的计算结果，就可以通过频率域增强后的图像g(x,y)</li>
+<li>3 基于频率域的图像噪声消除——频率域低通滤波(<strong>选择能使低频通过，使高频衰减的转移函数实现低通滤波，达到滤除噪声的目的</strong>)</li>
+</ol>
+<ul>
+<li>理想低通滤波器</li>
+<li>巴特沃斯低通滤波器</li>
+<li>高斯低通滤波器</li>
+</ul>
+<p>5.4 基于频率域的图像增强——频率域高通滤波(<strong>选择能使高频通过，使低频衰减的转移函数实现高通滤波，达到突出图像的高频边缘成分，实现图像增强的效果</strong>)</p>
+<ul>
+<li>理想高通滤波器</li>
+<li>巴斯沃特高通滤波器</li>
+<li>高斯高通滤波器</li>
+</ul>
+<p>5.5 带阻滤波和带通滤波（<strong>用于对某些区域的某一频率范围内的频率分量抑制其通过或让其通过</strong>）</p>
 
         <h2 id="第6章-图像恢复-！！"   >
           <a href="#第6章-图像恢复-！！" class="heading-link"><i class="fas fa-link"></i></a>第6章 图像恢复 ！！</h2>
-      <p>6.1.3 一维离散退化模型</p>
+      <p>6.1.2 离散退化模型 $g(x,y) = H[f(x,y)]+n(x,y)$</p>
 <p>6.5 图像噪声与被噪声污染图像的恢复</p>
+<ul>
+<li>常用噪声<ul>
+<li>高斯噪声</li>
+<li>瑞丽噪声</li>
+<li>均匀分布噪声</li>
+<li>脉冲噪声</li>
+</ul>
+</li>
+<li>噪声分类<ul>
+<li>加性噪声（<strong>独立于图像信号的噪声</strong>）</li>
+<li>乘性噪声（<strong>噪声的幅值与图像本身的灰度值有关</strong>）</li>
+</ul>
+</li>
+<li>噪声恢复方法<ul>
+<li>谐波均值滤波（<strong>善于处理像高斯噪声一类的噪声，对“盐”噪声处理效果很好，但不适用于对“胡椒”噪声的处理</strong>）</li>
+<li>逆谐波均值滤波（<strong>适合于减少和消除椒盐噪声。当Q为正数时，用于消除“胡椒”噪声；当Q为负数时，用于消除“盐”噪声。但它不能同时消除“胡椒”噪声和“盐”噪声。当Q为-1时，逆谐波均值滤波器就退变成谐波均值滤波器</strong>）</li>
+<li>中点滤波（<strong>结合了顺序统计和求平均的优点，对于高斯和均匀随机分布类噪声有很好的效果</strong>）</li>
+<li>自适应中值滤波（<strong>去除“椒盐”噪声，平滑其他非冲击噪声，并减少诸如物体边界细节或粗化等失真</strong>）</li>
+</ul>
+</li>
+</ul>
 <p>6.6 几何失真的校正</p>
+<ul>
+<li>坐标的几何校正</li>
+<li>灰度值恢复</li>
+</ul>
 <p>坐标变换-灰度插值</p>
 
         <h2 id="第7章-图像压缩编码"   >
           <a href="#第7章-图像压缩编码" class="heading-link"><i class="fas fa-link"></i></a>第7章 图像压缩编码</h2>
-      <p>7.1 DCT变换（离散余弦变换）</p>
+      <p>7.1 DCT变换（离散余弦变换）<br>？？？</p>
 
         <h2 id="第8章-小波图像处理"   >
           <a href="#第8章-小波图像处理" class="heading-link"><i class="fas fa-link"></i></a>第8章 小波图像处理</h2>
       <p>8.1.1 小波的概念和特性</p>
+<ul>
+<li>小波是指小区域、长度有限、均值为0的振荡波形</li>
+<li>小波必须是振荡的；小波的振幅只能在一个很短的一段区间上非零</li>
+<li><strong>小波变换弥补了傅里叶变换不能描述随时间变换的频率特性的不足，特别适合于那些在不同时间窗内具有不同频率特性，而且其应用目的是为了得到信号或图像的局部频谱信息而非整体信息的信号或图像处理问题</strong></li>
+</ul>
 <p>8.1.6 图像的小波变换</p>
-<p>8.3 基于小波变换的图像去噪方法</p>
+<ul>
+<li>小波变换关键问题<ol>
+<li>小波变换层数的选择</li>
+<li>小波基的选取</li>
+</ol>
+</li>
+<li>几种最基本的小波基<ol>
+<li>Haar小波</li>
+<li>墨西哥草帽小波</li>
+</ol>
+</li>
+</ul>
+<p>8.3 基于小波变换的图像去噪方法（<strong>去除噪声的同时又能较好地保留图像特征</strong>）</p>
+<ul>
+<li>小波去噪特点<ol>
+<li>低熵性</li>
+<li>多分辨性</li>
+<li>去相关性</li>
+<li>选基灵活性</li>
+</ol>
+</li>
+<li>阈值去噪步骤<ol>
+<li>选择小波函数并确定分解层数N(一般N=3)</li>
+<li>对图像信号进行小波分解，将图像信号分解为低频和高频信息，而噪声部分通常包含在高频中</li>
+<li>对小波分解的高频系数进行阈值量化处理</li>
+<li>利用小波分解的第N层低频系数和经过阈值量化处理后的1~N层高频系数进行小波重构(小波反变换)，重构后得到的图像即是去噪后的图像</li>
+</ol>
+</li>
+<li>小波收缩阈值去噪方法<ol>
+<li>硬阈值处理(<strong>硬阈值算法可以很好地保留图像边缘等局部特征；对含有丰富边缘的图像中产生许多“人为的”噪声点，图像会出现振铃、伪吉布斯效应等失真现象</strong>)</li>
+<li>软阈值处理(<strong>该算法处理结果相对于硬阈值处理平滑了许多，但造成了一定的高频信息损失，会导致图像边缘出现一定程度的模糊失真</strong>)</li>
+</ol>
+</li>
+</ul>
 
         <h2 id="第9章-图像分割"   >
           <a href="#第9章-图像分割" class="heading-link"><i class="fas fa-link"></i></a>第9章 图像分割</h2>
       <p>9.2.2 Hough变换</p>
+<ul>
+<li>基本思想是将图像空间X-Y变换到参数空间P-Q，利用图像空间X-Y与参数空间P-Q的点————线对偶性，通过把原始图像中给定形状的直线或曲线变换成参数空间的一个点，即原始图像中给定形状的直线或曲线变换成参数空间的一个点，即原始图像中给定形状的直线或曲线上的所有点都集中到参数空间的直线相交的某个点上而形成峰值（点数目累积的值）。这样，就把原始图像中给定形状的直线或曲线的检测问题，变成了寻找变换空间中的峰点问题，也把检测整体特性变成检测局部特性的问题。</li>
+</ul>
 <p>9.3.1 基于阈值的分割方法</p>
-<p>9.4基于跟踪的图像分割</p>
+<ul>
+<li>基于阈值的图像分割方法是提取物体与背景在灰度上的差异，把图像分为具有不同灰度级的目标区域和背景区域的一种图像分割技术</li>
+</ul>
+<p>9.4基于跟踪的图像分割<br>基于跟踪的图像分割方法是先通过对图像上的点的简便运算，检测出可能存在的物体上的点，然后在检测到的点的基础上通过跟踪运算来检测物体的边缘轮廓的一种图像分割方法。这种方法的特点是跟踪计算不需要在每个图像点上都进行，只需要在已检测到的点和正在跟踪的物体的边缘轮廓延伸点上进行即可。</p>
+<ul>
+<li>轮廓跟踪法<ol>
+<li>在靠近边缘处任取一起始点，然后按照每次只前进一步，步距为一个像素的原则开始跟踪。</li>
+<li>当跟踪中的某步是由白区进入黑区时，以后各步向左转，直到穿出黑区为止</li>
+<li>当跟踪中的某步是由白区进入白区时，以后各步向右转，直到穿出白区为止</li>
+<li>当围绕目标边界循环跟踪一周回到起点时，则所跟踪的轨迹便是目标的轮廓；否则，应按步骤2和步骤3的原则继续进行跟踪</li>
+</ol>
+</li>
+<li>光栅跟踪法<ol>
+<li>确定检测阈值d和跟踪阈值t，且要求d&gt;t</li>
+<li>用检测阈值d逐行对图像进行扫描，依次将灰度值大于或等于检测阈值d的点的位置记为1</li>
+<li>逐行扫描图像，若图像中的(i,j)点为接受对象点，则在第i+1行上找点(i,j)的邻点(i+1,j-1)、(i+1,j)、(i+1,j+1)，并将其中灰度值大于或等于跟踪阈值t的邻点确定为新的接受对象点，将对应位置记为1</li>
+<li>重复步骤3，直至图像中除最末一行以外的所有接受点扫描完为止。此时位置为1的像素点连成的曲线即为检测到的边缘</li>
+</ol>
+</li>
+</ul>
 <p>9.5 基于区域的图像分割</p>
+<ul>
+<li>区域生长法(<strong>根据事先定义的相似性准则，将图像中满足相似性准则的像素或子区域聚合成更大区域的过程</strong>)</li>
+<li>分裂合并法(<strong>根据事先确定的分裂合并准则，也即区域特征一致性的测度；从整个图像出发，根据图像中各区域的不一致性，把图像或区域分裂成新的子区域；同时，可查找相邻区域有没有相似的特征，当相邻子区域满足一致性特征时，把它们合并成一个较大区域，直至所有区域不再满足分裂和合并的条件为止</strong>)</li>
+</ul>
 
         <h2 id="第10章-图像特征提取"   >
           <a href="#第10章-图像特征提取" class="heading-link"><i class="fas fa-link"></i></a>第10章 图像特征提取</h2>
@@ -133,7 +361,6 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
           <a href="#第14章-视频图像处理基础" class="heading-link"><i class="fas fa-link"></i></a>第14章 视频图像处理基础</h2>
       <p>14.1 视频图像处理概念</p>
 <p>14.2 基于视频图像的运动目标检测与识别</p>
-<p>​    </p>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/01/06/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">软件体系结构</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"><span class="paginator-prev__text">操作系统重点知识整理</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-绪论"><span class="toc-number">1.</span> <span class="toc-text">
           第1章 绪论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-数字图像处理基础"><span class="toc-number">2.</span> <span class="toc-text">
           第2章 数字图像处理基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-数字图像的基本运算"><span class="toc-number">3.</span> <span class="toc-text">
@@ -389,7 +616,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   Stun.utils.pjaxReloadLocalSearch();
 }, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script><script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1609922122862')
+  navigator.serviceWorker.register('/sw.js?t=1610032945614')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }
