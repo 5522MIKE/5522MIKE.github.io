@@ -24,15 +24,15 @@ var precacheUrls = [];
 
   precacheUrls.push('/');
 
+  precacheUrls.push('/2019/11/25/Hello world/');
+
+  precacheUrls.push('/2019/12/03/Git和GitHub入门指南/');
+
   precacheUrls.push('/2019/11/25/Start/');
 
-  precacheUrls.push('/2021/01/06/软件体系结构/');
+  precacheUrls.push('/2019/11/26/docker/');
 
-  precacheUrls.push('/2021/01/05/数字图像处理/');
-
-  precacheUrls.push('/2020/12/26/操作系统重点知识整理/');
-
-  precacheUrls.push('/2020/10/07/回形针与10个批评者聊天/');
+  precacheUrls.push('/2020/05/06/pathinfo/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};
