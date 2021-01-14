@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="关键点串联 co-author: @ppy">
+<!DOCTYPE html><html lang="zh-cn"><head><link rel=manifest href=/manifest.json><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/icon.jpg?v=2.0.0-rc.0" type="image/png" sizes="32x32"><meta name="description" content="关键点串联 co-author: @ppy @ysl">
 <meta name="keywords" content="技术探究">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字图像处理">
 <meta property="og:url" content="https:&#x2F;&#x2F;mikyming.online&#x2F;2021&#x2F;01&#x2F;05&#x2F;%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86&#x2F;">
 <meta property="og:site_name" content="MikyMing&#39;s Blog">
-<meta property="og:description" content="关键点串联 co-author: @ppy">
+<meta property="og:description" content="关键点串联 co-author: @ppy @ysl">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2021-01-07T15:22:08.907Z">
+<meta property="og:updated_time" content="2021-01-14T11:57:47.522Z">
 <meta name="twitter:card" content="summary"><meta name="keywords" content="MikyMing, MikyMing's Blog"><meta name="description" content="技术,生活"><title>数字图像处理 | MikyMing's Blog</title><link ref="canonical" href="https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.0.0-rc.0"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
@@ -31,7 +31,7 @@ var CONFIG = {
 };
 
 window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="MikyMing's Blog" type="application/atom+xml">
-</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">数字图像处理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-07</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">Words</span><span class="post-meta-item__value">4.9k</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>关键点串联 co-author: @ppy</p>
+</head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" target="_blank" rel="noopener" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fa fa-address-book"></i></span><span class="header-nav-menu-item__text">友链</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://www.bobby285271.top/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">BobbyRong</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="https://blog.ojhdt.com/" target="_blank" rel="noopener"><span class="header-nav-submenu-item__text">ojhdt</span></a></div></div></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">数字图像处理</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-14</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">Words</span><span class="post-meta-item__value">6.5k</span></span><span class="post-meta-item post-meta-item--visitors"><span class="post-meta-item__icon" data-popover="Visitors" data-popover-pos="up"><i class="fas fa-eye"></i></span><span class="post-meta-item__value" id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><p>关键点串联 co-author: @ppy @ysl</p>
 <a id="more"></a>
 
 
@@ -65,7 +65,7 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 </li>
 <li>请解释研究图像增强的基本思路 <strong>简单地突出图像中感兴趣的特征，或想办法显现图像中那些模糊的细节，以使图像更清晰地被显示或更适合人或机器的处理与分析</strong></li>
 <li>图像恢复的基本思路 <strong>从退化图像的数学或概率模型出发，研究改进图像的外观，从而使恢复以后的图像尽可能反映原始图像的本来面目</strong></li>
-<li>图像压缩编码的基本思路 <strong>在不损失图像质量或少损失图像质量的前提下，通过对图像的重新编码，尽可能地减少表示该图像的字节数量，以满足图像存储和实时传输的应用需求</strong></li>
+<li>、图像压缩编码的基本思路 <strong>在不损失图像质量或少损失图像质量的前提下，通过对图像的重新编码，尽可能地减少表示该图像的字节数量，以满足图像存储和实时传输的应用需求</strong></li>
 <li>图像分割的基本目的 <strong>根据图像的某种特征或某种相似性测度，把一幅图像分成若干个互不交迭且具有相同或相近特征的区域</strong></li>
 <li>图像的表述和描述的目的 <strong>通过对图像分割等方法得到的图像中感兴趣的区域或目标，寻找出更适合于计算机进一步处理的表示和描述方法</strong></li>
 <li>简述数字图像处理有哪些应用 <strong>媒体通信、宇宙探索、遥感技术、生物医学、工业生产、气象预报、军事技术、侦缉破案、考古、文化产业</strong></li>
@@ -92,14 +92,17 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 </ul>
 <p>3.2 对数变换</p>
 <ul>
-<li>对于原图像$f(x,y)$进行对数变换的解析式可表示为$g(x,y)=c*log(1+f(x,y))$，其中，$c$是一个常数。</li>
-<li>作用是对原图像的灰度值动态范围进行压缩，主要用于调高输入图像的低灰度值。</li>
-</ul>
+<li><p>对于原图像$f(x,y)$进行对数变换的解析式可表示为$g(x,y)=c*log(1+f(x,y))$，其中，$c$是一个常数。</p>
+</li>
+<li><p>作用是对原图像的灰度值动态范围进行压缩，主要用于调高输入图像的低灰度值。</p>
 <p>3.3 灰度直方图</p>
-<ul>
-<li>灰度图像的直方图是一种表示数字图像中各级灰度值及其出现频数的关系的函数，实质上就是柱状图。</li>
-<li>归一化灰度图像直方图：求该灰度值出现的概率</li>
-<li>仅能描述图像中每个灰度值具有的像素个数，不能表示图像中每个像素的位置信息</li>
+</li>
+<li><p>灰度图像的直方图是一种表示数字图像中各级灰度值及其出现频数的关系的函数，实质上就是柱状图。</p>
+</li>
+<li><p>归一化灰度图像直方图：求该灰度值出现的概率</p>
+</li>
+<li><p>仅能描述图像中每个灰度值具有的像素个数，不能表示图像中每个像素的位置信息</p>
+</li>
 </ul>
 <p>3.4 图像的代数运算</p>
 <ul>
@@ -148,12 +151,9 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 <li>将所得的变换函数的各灰度等级值转化标准的灰度级别值</li>
 <li>求新图像的各灰度级别值的像素数目</li>
 <li>求新图像中个灰度级别的分布概率$p_s(s_k)=m_k/n$</li>
-<li>画出均衡化后的新图像的直方图</li>
+<li>画出均衡化后的新图像的直方图<br>4.2.2 直方图规定化</li>
 </ol>
 </li>
-</ul>
-<p>4.2.2 直方图规定化</p>
-<ul>
 <li>把已知直方图的图像变换成具有某种期望的直方图的图像增强方法</li>
 </ul>
 <p>4.3 基于空间平滑滤波的图像增强方法</p>
@@ -197,8 +197,7 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
 <li>用设计的转移函数H(u,v)乘以F(u,v)，即求G(u,v)</li>
 <li>求步骤3的计算结果的傅里叶反变换，即计算$F^{-1}[G(u,v)]$</li>
 <li>取步骤4的实部</li>
-<li>用$(-1)^{(x+y)}$乘以步骤5的计算结果，就可以通过频率域增强后的图像g(x,y)</li>
-<li>3 基于频率域的图像噪声消除——频率域低通滤波(<strong>选择能使低频通过，使高频衰减的转移函数实现低通滤波，达到滤除噪声的目的</strong>)</li>
+<li>用$(-1)^{(x+y)}$乘以步骤5的计算结果，就可以通过频率域增强后的图像g(x,y)<br>5.3 基于频率域的图像噪声消除——频率域低通滤波(<strong>选择能使低频通过，使高频衰减的转移函数实现低通滤波，达到滤除噪声的目的</strong>)</li>
 </ol>
 <ul>
 <li>理想低通滤波器</li>
@@ -329,38 +328,156 @@ window.CONFIG = CONFIG;</script><link rel="alternate" href="/atom.xml" title="Mi
         <h2 id="第10章-图像特征提取"   >
           <a href="#第10章-图像特征提取" class="heading-link"><i class="fas fa-link"></i></a>第10章 图像特征提取</h2>
       <p>10.1 图像的边缘特征及其检测方法</p>
-<p>10.2 图像的电与角点特征及其检测方法</p>
+<ul>
+<li>图像边缘特征：具有方向和幅度两个特征。<ul>
+<li>沿边缘走向，像素的灰度值变化比较平缓。</li>
+<li>沿垂直于边缘的走向：像素的灰度值则变化比较剧烈。这种剧烈变化或者呈阶跃状，或者呈屋顶状，分别称为阶跃状边缘和屋顶状边缘。</li>
+</ul>
+</li>
+<li>图像特征分为自然特征和人工特征两大类<ul>
+<li>人工特征是指人们为了便于对图像进行处理和分析而认为认定的图像特征，比如图像直方图、图像频谱图和图像的各种统计特征（图像的平均值、图像的方差、图像的标准差、图像的熵）</li>
+<li>自然特征是指图像固有的特征，比如图像中的边缘、角点、纹理、形状和颜色等</li>
+<li>三种典型边缘检测算子的性能分析：从总体上看，梯度算子对于噪声都有一定的敏感性，所以比较适用于图像边缘灰度值比较尖锐，且图像中噪声比较小的情况下应用（roberts，sobel，Prewitt）</li>
+</ul>
+</li>
+</ul>
+<p>10.2 图像的点与角点特征及其检测方法          </p>
+<ul>
+<li><p>图像中的点分为一般意义上的点（也称为孤立像素点）和角点两点</p>
+<ul>
+<li>角点的特征是一种非常重要和直观的图像特征，角点的特征有计算简单、计算量少，且对旋转、平移和缩放具有不变性等特点。</li>
+<li>图像点：如果图像中一个非常小的区域的灰度幅值与其领域相比有着明显的差异，则称这个非常小的区域称为图像点。</li>
+</ul>
+</li>
+<li><p>角点检测方法</p>
+<ul>
+<li>基于模板的角点检测算法</li>
+<li>基于边缘的角点检测算法</li>
+<li>基于图像灰度变化和角点检测算法（<strong>后两种检测算法最为广泛</strong>）</li>
+</ul>
+</li>
+</ul>
 
         <h2 id="第11章-彩色图像处理"   >
           <a href="#第11章-彩色图像处理" class="heading-link"><i class="fas fa-link"></i></a>第11章 彩色图像处理</h2>
       <p>11.1.1 三基色原理</p>
+<ul>
+<li>自然界中绝大多数颜色都可以分解成红，绿，蓝这三种颜色，这即是色度学中的三基色原理</li>
+</ul>
 <p>11.2.1 RGB彩色模型</p>
+<ul>
+<li>在RGB彩色模型中，每一幅图像都由R、G、B这3个基色图像分量表示。在彩色监视器应用中，当反映同一副图像的R，G，B三基色图像分量同时送入RGB监视器，这三幅图像就在荧光屏上混合产生一幅合成的彩色图像</li>
+</ul>
 <p>11.2.2 HSI彩色模型</p>
-<p>11.3.1 反色变换</p>
+<ul>
+<li>HSI彩色模型模型常用于观察者进行彩色匹配实验和艺术家所使用，比较适合于人们用色调（H）、饱和度（S）和亮度（I）描述被观察物体颜色的解释，对于开发基于彩色描述的图像处理方法是一个理想的工具</li>
+</ul>
 <p>11.3.2 彩色图像的灰度化</p>
+<ul>
+<li>将彩色图像转变为灰度图像的处理称为彩色图像的灰度化处理</li>
+</ul>
 <p>11.3.3 真彩色转变为256色</p>
+<ul>
+<li>由于硬件条件的限制和某些应用的需求，有时需要将真彩色图像转化为256色图像进行显示。</li>
+<li>将真彩色图像转化为256色图像会有大量的颜色信息损失掉，因此，在转换过程中要找到合适的映射关系，使得变化后的256种颜色在原图像中最具代表性或出现的频率最高<ul>
+<li>中位切分法</li>
+<li>流行色法</li>
+</ul>
+</li>
+</ul>
 <p>11.3.4 彩色平衡</p>
+<ul>
+<li><strong>为什么要做彩色平衡</strong>：由于光源颜色、环境反射、成像设备缺陷等，会导致拍摄或图像数字化后的图像中的颜色在显示时看起来有些不正常，即景物中物体的颜色偏离了它原来的真实色彩。</li>
+<li>彩色平衡就是通过对色彩偏移的图像进行色彩校正，也即通过调整的图像R，G，B 3个分量的强度，恢复图像场景原始颜色特征的技术和过程</li>
+</ul>
 <p>11.4 彩色图像增强</p>
+<ul>
+<li><strong>为什么要做彩色图像增强</strong>：在得到的彩色图像中，有时会存在在<strong>对比度低、颜色偏暗、局部细节</strong>不明显等问题，为了<strong>改善图像的视觉效果、突出图像的特征</strong>，利于进一步的处理。</li>
+<li>真彩色增强<ul>
+<li>亮度增强   </li>
+<li>色调增强</li>
+<li>饱和度增强</li>
+</ul>
+</li>
+<li>伪彩色增强<ul>
+<li>密度分层法</li>
+<li>灰度级-彩色变换法</li>
+<li>频率滤波法</li>
+</ul>
+</li>
+<li>假彩色增强<ul>
+<li><strong>二者的不同</strong>：假彩色增强与伪彩色 增强不同，它是一幅初始的彩色图像或者从多光谱图像的波段中生成增强的彩色图像的一种方法，其实质是从一幅彩色图像映射到另一幅彩色图像，由于得到的彩色图像不再能反映原图像的真实色彩，因此称为假彩色增强</li>
+</ul>
+</li>
+</ul>
+<p>11.5 彩色图像的平滑</p>
+<ul>
+<li>由于光照，摄影设备以及图像传输等原因，在得到彩色图像中不可避免地存在噪声。为了得到质量较高的彩色图像，要通过对图像的平滑处理消除这些噪声。</li>
+</ul>
 <p>11.6 彩色图像的锐化</p>
+<ul>
+<li></li>
+</ul>
 <p>11.7 彩色图像的边缘检测</p>
 <p>11.8 彩色图像的分割</p>
+<ul>
+<li>彩色图像分割：利用图像的彩色信息，将图像分割为一些感兴趣区域的图像处理方法。彩色图像的分割可以看作是灰度图像分割向彩色空间的一种扩展和延伸</li>
+</ul>
 
         <h2 id="第12-形态学图像处理"   >
           <a href="#第12-形态学图像处理" class="heading-link"><i class="fas fa-link"></i></a>第12 形态学图像处理</h2>
-      <p>12.2.1 腐蚀</p>
+      <p>12.2.1 腐蚀 </p>
+<ul>
+<li>腐蚀是一种最基本的数学形态学运算，所有其他形态学运算均可以在这一算的基础上导出。</li>
+</ul>
 <p>12.2.2 膨胀</p>
+<ul>
+<li>膨胀运算的概念</li>
+<li>结构元素形状对膨胀运算结果的影响</li>
+<li>膨胀运算的应用</li>
+</ul>
 <p>12.2.3 开运算和闭运算</p>
+<ul>
+<li>开运算：使用同一结构元素对目标图像先进行腐蚀算，然后再进行膨胀运算称为开运算</li>
+<li>闭运算：闭运算是开运算的对偶运算，使用同一结构元素对目标图像先进行膨胀运算，再进行腐蚀运算成为闭运算</li>
+</ul>
 <p>12.3 二值图像的形态学处理</p>
+<ul>
+<li>形态滤波</li>
+<li>边界提取</li>
+<li>区域填充</li>
+<li>骨架处理</li>
+<li>物体识别</li>
+</ul>
 
         <h2 id="第13章-目标表示与描述"   >
           <a href="#第13章-目标表示与描述" class="heading-link"><i class="fas fa-link"></i></a>第13章 目标表示与描述</h2>
       <p>13.1 边界表示</p>
+<ul>
+<li>边界的描述方法<ul>
+<li>多边形</li>
+<li>标记</li>
+<li>边界线段</li>
+</ul>
+</li>
+</ul>
 <p>13.2.3 傅里叶描述子</p>
+<ul>
+<li>边界点的复数表示：s(k) = x(k) + jy(k) </li>
+</ul>
 
         <h2 id="第14章-视频图像处理基础"   >
           <a href="#第14章-视频图像处理基础" class="heading-link"><i class="fas fa-link"></i></a>第14章 视频图像处理基础</h2>
       <p>14.1 视频图像处理概念</p>
+<ul>
+<li>视频图像处理是指对视频图像信息进行变换，加工和分析，提高图像质量或提取图像中某些特殊信息。</li>
+</ul>
 <p>14.2 基于视频图像的运动目标检测与识别</p>
+<ul>
+<li>帧差法</li>
+<li>背景减法</li>
+<li>光流场分析法</li>
+</ul>
 </div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://mikyming.online">MikyMing</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">https://mikyming.online/2021/01/05/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-cn" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://mikyming.online/tags/%E6%8A%80%E6%9C%AF%E6%8E%A2%E7%A9%B6/">技术探究</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/01/06/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">软件体系结构</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2020/12/26/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8D%E7%82%B9%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/"><span class="paginator-prev__text">操作系统重点知识整理</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-绪论"><span class="toc-number">1.</span> <span class="toc-text">
           第1章 绪论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-数字图像处理基础"><span class="toc-number">2.</span> <span class="toc-text">
           第2章 数字图像处理基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-数字图像的基本运算"><span class="toc-number">3.</span> <span class="toc-text">
@@ -616,7 +733,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   Stun.utils.pjaxReloadLocalSearch();
 }, false);</script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="/js/utils.js?v=2.0.0-rc.0"></script><script src="/js/stun-boot.js?v=2.0.0-rc.0"></script><script src="/js/scroll.js?v=2.0.0-rc.0"></script><script src="/js/header.js?v=2.0.0-rc.0"></script><script src="/js/sidebar.js?v=2.0.0-rc.0"></script><script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1610032945614')
+  navigator.serviceWorker.register('/sw.js?t=1610629484938')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }
