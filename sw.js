@@ -26,13 +26,13 @@ var precacheUrls = [];
 
   precacheUrls.push('/2019/11/25/Start/');
 
+  precacheUrls.push('/2022/01/19/电子书评测/');
+
   precacheUrls.push('/2021/10/13/数据库/');
 
   precacheUrls.push('/2021/01/06/软件体系结构/');
 
   precacheUrls.push('/2021/01/05/数字图像处理/');
-
-  precacheUrls.push('/2020/12/26/操作系统重点知识整理/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};
